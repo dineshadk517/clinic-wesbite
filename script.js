@@ -16,6 +16,7 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     for (const role in users) {
         if (users[role].username === username && users[role].password === password) {
             alert("Login successful as " + users[role].role);
+            window.location.href = "dashboard.html"; // Redirect to dashboard page
             userFound = true;
             break;
         }
