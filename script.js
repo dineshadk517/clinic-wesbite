@@ -1,40 +1,38 @@
-// Simple Login Simulation with Role-based Redirection
+// Example users with roles
+const users = {
+    "doctor": { username: "doctor1", password: "1234", role: "doctor" },
+    "nurse": { username: "nurse1", password: "1234", role: "nurse" },
+    "user": { username: "user1", password: "1234", role: "user" }
+};
 
-const form = document.getElementById('login-form');
-const errorMessage = document.getElementById('error-message');
+document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    // Example users with roles
-    const users = {
-        "doctor": { username: "doctor1", password: "1234", role: "doctor" },
-        "nurse": { username: "nurse1", password: "1234", role: "nurse" },
-        "user": { username: "user1", password: "1234", role: "user" }
-    };
-
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    // Check if the username and password match any user
-    let foundUser = null;
-    for (let key in users) {
-        if (users[key].username === username && users[key].password === password) {
-            foundUser = users[key];
+    // Check user credentials
+    let userFound = false;
+    for (const role in users) {
+        if (users[role].username === username && users[role].password === password) {
+            alert("Login successful as " + users[role].role);
+            userFound = true;
             break;
         }
     }
 
-    if (foundUser) {
-        // Redirect based on role
-        if (foundUser.role === "doctor") {
-            window.location.href = "doctor_dashboard.html";
-        } else if (foundUser.role === "nurse") {
-            window.location.href = "nurse_dashboard.html";
-        } else {
-            window.location.href = "user_dashboard.html";
-        }
-    } else {
-        errorMessage.textContent = "Invalid username or password!";
+    if (!userFound) {
+        document.getElementById("message").textContent = "Invalid username or password!";
     }
+});
+
+// Forgot Password and Create New Account functionality
+document.getElementById("forgot-password").addEventListener("click", function(event) {
+    event.preventDefault();
+    alert("Password recovery functionality is not implemented yet.");
+});
+
+document.getElementById("create-account").addEventListener("click", function(event) {
+    event.preventDefault();
+    alert("Account creation functionality is not implemented yet.");
 });
