@@ -18,41 +18,55 @@
 
     <section>
         <h2>Welcome, Nurse!</h2>
-        <p>This is the nurse’s dashboard where you can view patient history and assist with medical procedures.</p>
+        <p>This is the nurse’s dashboard where you can view patient history, assist with medical procedures, and manage appointments.</p>
     </section>
 
+    <!-- Appointment Booking Section -->
     <section>
-        <h3>Upcoming Appointments</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Patient Name</th>
-                    <th>Appointment Date</th>
-                    <th>Procedure</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>John Doe</td>
-                    <td>March 10, 2025, 10:00 AM</td>
-                    <td>Blood Test</td>
-                    <td>Confirmed</td>
-                </tr>
-                <tr>
-                    <td>Jane Smith</td>
-                    <td>March 10, 2025, 2:00 PM</td>
-                    <td>Physical Checkup</td>
-                    <td>Confirmed</td>
-                </tr>
-                <tr>
-                    <td>Emily Clark</td>
-                    <td>March 11, 2025, 9:30 AM</td>
-                    <td>X-Ray</td>
-                    <td>Pending</td>
-                </tr>
-            </tbody>
-        </table>
+        <h3>Book an Appointment</h3>
+        <form action="book_appointment.php" method="POST">
+            <label for="patient-name">Patient Name:</label>
+            <input type="text" id="patient-name" name="patient-name" required>
+
+            <label for="appointment-date">Appointment Date:</label>
+            <input type="datetime-local" id="appointment-date" name="appointment-date" required>
+
+            <label for="procedure">Procedure Type:</label>
+            <select id="procedure" name="procedure" required>
+                <option value="Blood Test">Blood Test</option>
+                <option value="Physical Checkup">Physical Checkup</option>
+                <option value="X-Ray">X-Ray</option>
+                <option value="MRI">MRI</option>
+            </select>
+
+            <label for="notes">Additional Notes:</label>
+            <textarea id="notes" name="notes" rows="4" placeholder="Enter any special instructions..."></textarea>
+
+            <button type="submit">Book Appointment</button>
+        </form>
+    </section>
+
+    <!-- Patient History Section -->
+    <section>
+        <h3>Patient History</h3>
+        <p>View a patient's medical history or past appointments here.</p>
+        <input type="text" placeholder="Search by Patient Name" id="search-patient">
+        <button>Search</button>
+
+        <!-- Example of Patient History -->
+        <div class="patient-history">
+            <p><strong>John Doe</strong> - Blood Test on March 5, 2025, 9:00 AM</p>
+            <p><strong>Jane Smith</strong> - Physical Checkup on March 4, 2025, 2:00 PM</p>
+        </div>
+    </section>
+
+    <!-- Notifications Section -->
+    <section>
+        <h3>Notifications</h3>
+        <ul>
+            <li>Upcoming appointment with John Doe at 10:00 AM tomorrow.</li>
+            <li>Reminder: X-Ray procedure for Jane Smith scheduled for 2:00 PM today.</li>
+        </ul>
     </section>
 
     <footer>

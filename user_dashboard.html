@@ -11,18 +11,83 @@
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="login.html">Logout</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="logout.html">Logout</a></li>
             </ul>
         </nav>
     </header>
 
     <section>
         <h2>Welcome, User!</h2>
-        <p>This is your personal dashboard where you can manage your medical appointments, view your health records, and more.</p>
+        <p>This is your dashboard where you can check your medical results and proceed with payments for services.</p>
     </section>
 
-    <footer>
-        <p>&copy; 2025 Clinic. All rights reserved.</p>
-    </footer>
-</body>
-</html>
+    <!-- Check Results Section -->
+    <section>
+        <h3>Check Your Results</h3>
+        <p>Here you can view your latest medical test results and appointments.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Test Name</th>
+                    <th>Date</th>
+                    <th>Result</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Blood Test</td>
+                    <td>March 5, 2025</td>
+                    <td>Normal</td>
+                    <td>Completed</td>
+                </tr>
+                <tr>
+                    <td>X-Ray</td>
+                    <td>March 4, 2025</td>
+                    <td>Pending</td>
+                    <td>Pending</td>
+                </tr>
+                <tr>
+                    <td>Physical Checkup</td>
+                    <td>March 3, 2025</td>
+                    <td>Normal</td>
+                    <td>Completed</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Proceed with Payments Section -->
+    <section>
+        <h3>Proceed with Payments</h3>
+        <p>View your outstanding payments for the services you have received and proceed with payments here.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Blood Test</td>
+                    <td>March 5, 2025</td>
+                    <td>$50</td>
+                    <td>Unpaid</td>
+                    <td><button class="pay-btn">Pay Now</button></td>
+                </tr>
+                <tr>
+                    <td>Physical Checkup</td>
+                    <td>March 3, 2025</td>
+                    <td>$80</td>
+                    <td>Paid</td>
+                    <td><button disabled>Paid</button></td>
+                </tr>
+                <tr>
+                    <td>X-Ray</td>
+                    <td>March 4, 2025</td>
+                    <td>$100

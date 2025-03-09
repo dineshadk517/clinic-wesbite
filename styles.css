@@ -36,21 +36,6 @@ section {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Analytics Section */
-.analytics-container {
-    display: flex;
-    gap: 20px;
-}
-
-.analytics-box {
-    flex: 1;
-    padding: 20px;
-    background: #007bff;
-    color: white;
-    text-align: center;
-    border-radius: 8px;
-}
-
 /* Table Styling */
 table {
     width: 100%;
@@ -82,10 +67,14 @@ button:hover {
     background-color: #218838;
 }
 
-button:last-child {
+button:disabled {
+    background-color: #6c757d;
+}
+
+.pay-btn {
     background-color: #dc3545;
 }
 
-button:last-child:hover {
+.pay-btn:hover {
     background-color: #c82333;
 }
