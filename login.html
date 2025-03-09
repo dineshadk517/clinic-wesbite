@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Western Sydney Clinic</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="login-container">
@@ -14,7 +14,7 @@
 
         <section class="login-form">
             <h2>Login</h2>
-            <form id="loginForm">
+            <form action="/login" method="POST">
                 <div>
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
@@ -24,18 +24,11 @@
                     <input type="password" id="password" name="password" required>
                 </div>
                 <button type="submit">Login</button>
-                <div id="message"></div>
             </form>
 
             <p><a href="#">Forgot Password?</a></p>
             <p><a href="#">Create a New Account</a></p>
         </section>
-
-        <footer>
-            <p>&copy; 2025 Western Sydney Clinic. All rights reserved.</p>
-        </footer>
     </div>
-
-    <script src="login.js"></script>
 </body>
 </html>

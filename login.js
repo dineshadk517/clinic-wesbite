@@ -1,30 +1,12 @@
-// Example user data
-const users = {
-    doctor1: { username: "doctor1", password: "1234", role: "doctor" },
-    nurse1: { username: "nurse1", password: "1234", role: "nurse" }
-};
-
-// Handle login form submission
-document.getElementById("loginForm").addEventListener("submit", function(event) {
+document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-    const messageDiv = document.getElementById("message");
-
-    // Check if the user exists
-    let userFound = false;
-    for (const key in users) {
-        if (users[key].username === username && users[key].password === password) {
-            userFound = true;
-            // Redirect to the dashboard based on user role
-            window.location.href = "dashboard.html";
-            break;
-        }
-    }
-
-    // Show message if login failed
-    if (!userFound) {
-        messageDiv.textContent = "Invalid username or password!";
+    if (username && password) {
+        // Simulate an API call for authentication (in real case, use AJAX or fetch)
+        console.log('Logging in with:', username, password);
+    } else {
+        alert('Please fill out both fields.');
     }
 });

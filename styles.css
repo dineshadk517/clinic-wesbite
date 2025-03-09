@@ -1,152 +1,65 @@
-/* Global Styles */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f8fc;
+    background-color: #f4f4f4;
 }
 
-/* Header */
 header {
-    background-color: #367fa9;
+    background-color: #007BFF;
     color: white;
-    padding: 20px 0;
+    padding: 20px;
     text-align: center;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2.8em;
+.login-container, .dashboard-container {
+    padding: 20px;
 }
 
-header p {
-    margin: 0;
-    font-size: 1.2em;
+.login-form {
+    width: 300px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Main Content */
-.intro, .cta {
-    text-align: center;
-    margin: 50px 0;
-}
-
-.intro h2 {
-    font-size: 2em;
-    color: #0d3b66;
-}
-
-.intro p {
-    font-size: 1.1em;
-    color: #555;
-}
-
-/* Call-to-action Buttons */
-.cta-buttons {
-    margin-top: 20px;
-}
-
-.cta-button {
-    background-color: #367fa9;
-    color: white;
-    padding: 15px 30px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 1.2em;
-    margin: 0 10px;
-    transition: background-color 0.3s ease;
-}
-
-.cta-button:hover {
-    background-color: #0d3b66;
-}
-
-/* Login Container */
-.login-container {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 40px 50px;
-    width: 350px;
-    text-align: center;
-    box-sizing: border-box;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Login Form */
-.login-form h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
+form div {
+    margin-bottom: 10px;
 }
 
 input[type="text"], input[type="password"] {
     width: 100%;
-    padding: 12px;
-    margin: 15px 0;
-    border-radius: 5px;
-    border: 1px solid #a2c2e1;
-    font-size: 1em;
-    color: #555;
+    padding: 8px;
+    margin-top: 5px;
 }
 
 button {
     width: 100%;
-    padding: 12px;
-    background-color: #367fa9;
+    padding: 10px;
+    background-color: #007BFF;
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 1.1em;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #0d3b66;
+    background-color: #0056b3;
 }
 
-.options {
-    margin-top: 10px;
-    font-size: 0.9em;
+nav {
+    margin-top: 20px;
 }
 
-.options a {
-    color: #367fa9;
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    margin-bottom: 10px;
+}
+
+nav ul li a {
     text-decoration: none;
-}
-
-.options a:hover {
-    text-decoration: underline;
-}
-
-/* Error Message */
-#message {
-    margin-top: 10px;
-    color: red;
-    font-size: 0.9em;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    margin-top: 40px;
-    padding: 20px;
-    background-color: #f4f8fc;
-    font-size: 1em;
-    color: #555;
-}
-
-/* Media Query for Mobile */
-@media (max-width: 600px) {
-    .login-container {
-        padding: 30px;
-        width: 90%;
-    }
-
-    .cta-button {
-        font-size: 1em;
-        padding: 12px 25px;
-    }
+    color: #007BFF;
 }
