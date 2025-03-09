@@ -3,32 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Western Sydney Clinic</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Western Sydney Clinic - Login</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <header>
+        Western Sydney Clinic
+    </header>
+
     <div class="login-container">
-        <header>
-            <h1>Western Sydney Clinic</h1>
-        </header>
-
-        <section class="login-form">
-            <h2>Login</h2>
-            <form action="/login" method="POST">
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit">Login</button>
-            </form>
-
-            <p><a href="#">Forgot Password?</a></p>
-            <p><a href="#">Create a New Account</a></p>
-        </section>
+        <h2>Login to Your Account</h2>
+        <form action="login-action.php" method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Login">
+        </form>
+        <div class="login-links">
+            <a href="forgot-password.html">Forgot Password?</a>
+            <a href="create-account.html">Create a New Account</a>
+        </div>
     </div>
+
+    <footer>
+        &copy; 2025 Western Sydney Clinic
+    </footer>
+
 </body>
 </html>
