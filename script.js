@@ -1,3 +1,13 @@
+// JavaScript for login functionality
+
+// Hardcoded credentials for demonstration
+const credentials = {
+    nurse: { username: "nurse1", password: "1234" },
+    doctor: { username: "doctor1", password: "1234" },
+    user: { username: "user1", password: "1234" }
+};
+
+// Event listener for form submission
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent form submission
 
@@ -5,11 +15,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     const role = document.getElementById('role').value;
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-
-    // Debugging: Log the inputs
-    console.log("Role:", role);
-    console.log("Username:", username);
-    console.log("Password:", password);
 
     // Check if role is selected
     if (!role) {
