@@ -3,28 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Our Clinic</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
-        header { background-color: #007BFF; color: white; padding: 20px; text-align: center; }
-        .container { padding: 20px; text-align: center; }
-        .container a { display: inline-block; margin: 10px; padding: 10px 20px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px; }
-        footer { background-color: #333; color: white; text-align: center; padding: 10px; position: fixed; bottom: 0; width: 100%; }
-    </style>
+    <title>Health Center Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <h1>Welcome to Our Clinic</h1>
-        <p>Your health is our top priority. Book appointments, access medical records, and more.</p>
+        <h1>Health Center Dashboard</h1>
     </header>
 
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#bookAppointment">Book Appointment</a></li>
+            <li><a href="#payBills">Pay Bills</a></li>
+            <li><a href="#checkResults">Check Results</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
     <div class="container">
-        <a href="login.html">Login</a>
-        <a href="register.html">Register</a>
+        <!-- Book Appointment Section -->
+        <section id="bookAppointment">
+            <h2>Book an Appointment</h2>
+            <form id="appointmentForm">
+                <label for="doctor">Select Doctor:</label>
+                <select id="doctor" name="doctor">
+                    <option value="Dr. Smith">Dr. Smith</option>
+                    <option value="Dr. Lee">Dr. Lee</option>
+                    <option value="Dr. Johnson">Dr. Johnson</option>
+                </select>
+
+                <label for="date">Choose Date:</label>
+                <input type="date" id="date" name="date">
+
+                <label for="time">Choose Time:</label>
+                <input type="time" id="time" name="time">
+
+                <button type="submit">Book Appointment</button>
+            </form>
+        </section>
+
+        <!-- Pay Bills Section -->
+        <section id="payBills">
+            <h2>Pay Due Bills</h2>
+            <form id="billForm">
+                <label for="billAmount">Amount Due:</label>
+                <input type="text" id="billAmount" value="$120.00" readonly>
+
+                <label for="paymentMethod">Payment Method:</label>
+                <select id="paymentMethod" name="paymentMethod">
+                    <option value="creditCard">Credit Card</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="bankTransfer">Bank Transfer</option>
+                </select>
+
+                <button type="submit">Pay Bill</button>
+            </form>
+        </section>
+
+        <!-- Check Results Section -->
+        <section id="checkResults">
+            <h2>Check Results</h2>
+            <form id="resultForm">
+                <label for="patientId">Enter Patient ID:</label>
+                <input type="text" id="patientId" name="patientId">
+
+                <button type="submit">Check Results</button>
+            </form>
+
+            <div id="resultDisplay" style="display:none;">
+                <h3>Test Results:</h3>
+                <p>Your test results are ready and available. Please check your email for further details.</p>
+            </div>
+        </section>
     </div>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Clinic. All rights reserved.</p>
+        <p>&copy; 2025 Health Center. All Rights Reserved.</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
