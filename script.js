@@ -1,24 +1,43 @@
- // Handle form submissions
+<script>
+    // Hardcoded credentials for demonstration
+    const credentials = {
+        nurse: { username: "nurse1", password: "1234" },
+        doctor: { username: "doctor1", password: "1234" },
+        user: { username: "user1", password: "1234" }
+    };
 
-// Book appointment
-document.getElementById('appointmentForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    alert("Appointment booked successfully!");
-});
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
 
-// Pay bills
-document.getElementById('billForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    alert("Bill paid successfully!");
-});
+        // Get user input
+        const role = document.getElementById('role').value;
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-// Check results
-document.getElementById('resultForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const patientId = document.getElementById('patientId').value;
-    if(patientId) {
-        document.getElementById('resultDisplay').style.display = 'block';
-    } else {
-        alert("Please enter a valid Patient ID.");
-    }
-});
+        // Check if role is selected
+        if (!role) {
+            alert("Please select a role.");
+            return;
+        }
+
+        // Check if credentials are valid
+        if (username === credentials[role].username && password === credentials[role].password) {
+            alert(`Login successful as ${role}!`);
+            // Redirect to respective dashboard
+            switch (role) {
+                case "nurse":
+                    window.location.href = "nurse-dashboard.html";
+                    break;
+                case "doctor":
+                    window.location.href = "doctor-dashboard.html";
+                    break;
+                case "user":
+                    window.location.href = "user-dashboard.html";
+                    break;
+            }
+        } else {
+            // Show error message
+            document.getElementById('errorMessage').style.display = 'block';
+        }
+    });
+</script>
