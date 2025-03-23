@@ -5,46 +5,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        header {
-            background-color: #007BFF;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .container {
-            padding: 20px;
-        }
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
+        header { background-color: #007BFF; color: white; padding: 20px; text-align: center; }
+        .container { padding: 20px; text-align: center; }
+        footer { background-color: #333; color: white; text-align: center; padding: 10px; position: fixed; bottom: 0; width: 100%; }
+        .card { border: 1px solid #ddd; padding: 20px; margin: 20px; background-color: white; border-radius: 5px; }
+        h2 { color: #007BFF; }
+        input, select { padding: 10px; margin: 10px; width: 200px; }
+        button { padding: 10px 20px; background-color: #007BFF; color: white; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
     <header>
         <h1>Welcome, User!</h1>
-        <p>This is your dashboard where you can manage your appointments and medical records.</p>
+        <p>This is your dashboard where you can manage your appointments, pay bills, and check your results.</p>
     </header>
 
     <div class="container">
-        <h2>Your Appointments</h2>
-        <p>No upcoming appointments.</p>
+        <!-- Appointment Booking Section -->
+        <div class="card">
+            <h2>Book an Appointment</h2>
+            <form id="appointmentForm">
+                <label for="appointmentDate">Select Date:</label>
+                <input type="date" id="appointmentDate" required>
+                <br>
+                <label for="doctor">Choose Doctor:</label>
+                <select id="doctor" required>
+                    <option value="">-- Select Doctor --</option>
+                    <option value="doctor1">Dr. Smith (General Practitioner)</option>
+                    <option value="doctor2">Dr. Johnson (Dentist)</option>
+                    <option value="doctor3">Dr. Lee (Orthopedic)</option>
+                </select>
+                <br>
+                <button type="submit">Book Appointment</button>
+            </form>
+        </div>
+
+        <!-- Pay Due Bills Section -->
+        <div class="card">
+            <h2>Pay Due Bills</h2>
+            <form id="billForm">
+                <label for="billAmount">Enter Bill Amount:</label>
+                <input type="number" id="billAmount" placeholder="Amount in USD" required>
+                <br>
+                <button type="submit">Pay Bill</button>
+            </form>
+        </div>
+
+        <!-- Check Results Section -->
+        <div class="card">
+            <h2>Check Medical Results</h2>
+            <form id="resultsForm">
+                <label for="testID">Enter Test ID:</label>
+                <input type="text" id="testID" placeholder="Test ID" required>
+                <br>
+                <button type="submit">Check Results</button>
+            </form>
+        </div>
     </div>
 
     <footer>
         <p>&copy; 2025 Clinic. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Appointment Booking
+        document.getElementById('appointmentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const appointmentDate = document.getElementById('appointmentDate').value;
+            const doctor = document.getElementById('doctor').value;
+            if (appointmentDate && doctor) {
+                alert(`Appointment booked with ${doctor} on ${appointmentDate}.`);
+            } else {
+                alert("Please fill all fields.");
+            }
+        });
+
+        // Paying Due Bills
+        document.getElementById('billForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const billAmount = document.getElementById('billAmount').value;
+            if (billAmount && billAmount > 0) {
+                alert(`Bill of $${billAmount} has been successfully paid.`);
+            } else {
+                alert("Please enter a valid amount.");
+            }
+        });
+
+        // Checking Medical Results
+        document.getElementById('resultsForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const testID = document.getElementById('testID').value;
+            if (testID) {
+                alert(`Results for Test ID: ${testID} are available. Please contact the clinic for further details.`);
+            } else {
+                alert("Please enter a valid Test ID.");
+            }
+        });
+    </script>
 </body>
 </html>
