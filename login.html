@@ -3,36 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Clinic</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Login Page</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #007BFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Login Container */
+        .login-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #007BFF;
+            font-size: 2rem;
+        }
+
+        .login-container p {
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        /* Button Styles */
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login-button:hover {
+            background: #0056b3;
+        }
+
+        /* Additional Links */
+        .additional-links {
+            margin-top: 20px;
+        }
+
+        .additional-links a {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .additional-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+            }
+
+            .login-container h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Login Container -->
+    <div class="login-container">
+        <h2>Welcome Back!</h2>
+        <p>Please log in to access your account.</p>
 
-    <section class="login-form">
-        <h2>Login to Your Account</h2>
-        <form id="login-form">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-
-            <button type="submit" class="btn">Login</button>
+        <!-- Login Form -->
+        <form id="login-form" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="login-button">Log In</button>
         </form>
-        <div id="error-message"></div>
-    </section>
 
-    <footer>
-        <p>&copy; 2025 Clinic. All rights reserved.</p>
-    </footer>
+        <!-- Additional Links -->
+        <div class="additional-links">
+            <a href="forgot-password.html">Forgot Password?</a> | <a href="signup.html">Create an Account</a>
+        </div>
+    </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Function to handle login
+        function handleLogin(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get form data
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Simulate login (replace with actual authentication logic)
+            if (email && password) {
+                alert(`Logged in successfully as ${email}`);
+                // Redirect to dashboard or another page
+                window.location.href = "dashboard.html";
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+    </script>
 </body>
 </html>
