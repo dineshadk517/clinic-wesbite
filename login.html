@@ -3,159 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Clinic Login</title>
     <style>
-        /* Basic Reset */
-        * {
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            background-color: #f4f4f4;
+            color: #333;
         }
-
-        body {
-            font-family: 'Arial', sans-serif;
+        header {
             background-color: #007BFF;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        /* Login Container */
-        .login-container {
-            background: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 400px;
+            color: white;
+            padding: 20px;
             text-align: center;
         }
-
-        .login-container h2 {
+        .container {
+            padding: 20px;
+        }
+        .login-section {
+            background-color: white;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .login-section h2 {
             margin-bottom: 20px;
-            color: #007BFF;
-            font-size: 2rem;
         }
-
-        .login-container p {
-            margin-bottom: 30px;
-            color: #666;
-        }
-
-        /* Form Styles */
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
-            font-weight: bold;
-        }
-
-        .form-group input {
+        .login-section input {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
-
-        .form-group input:focus {
-            border-color: #007BFF;
-            outline: none;
-        }
-
-        /* Button Styles */
-        .login-button {
+        .login-section select {
             width: 100%;
             padding: 10px;
-            background: #007BFF;
-            color: #fff;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .login-section button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 1rem;
+            border-radius: 4px;
             cursor: pointer;
-            transition: background 0.3s ease;
         }
-
-        .login-button:hover {
-            background: #0056b3;
+        .login-section button:hover {
+            background-color: #0056b3;
         }
-
-        /* Additional Links */
-        .additional-links {
-            margin-top: 20px;
-        }
-
-        .additional-links a {
-            color: #007BFF;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .additional-links a:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 20px;
-            }
-
-            .login-container h2 {
-                font-size: 1.5rem;
-            }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <!-- Login Container -->
-    <div class="login-container">
-        <h2>Welcome Back!</h2>
-        <p>Please log in to access your account.</p>
+    <header>
+        <h1>Welcome to Our Clinic</h1>
+        <p>Your health is our top priority. Book appointments, access medical records, and more.</p>
+    </header>
 
-        <!-- Login Form -->
-        <form id="login-form" onsubmit="handleLogin(event)">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            </div>
-            <button type="submit" class="login-button">Log In</button>
-        </form>
+    <div class="container">
+        <div class="login-section">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="role">Select Role:</label>
+                <select id="role" required>
+                    <option value="">-- Select Role --</option>
+                    <option value="nurse">Nurse</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="user">User (Patient)</option>
+                </select>
 
-        <!-- Additional Links -->
-        <div class="additional-links">
-            <a href="forgot-password.html">Forgot Password?</a> | <a href="signup.html">Create an Account</a>
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p id="errorMessage" style="color: red; display: none;">Invalid username or password.</p>
         </div>
     </div>
 
+    <footer>
+        <p>&copy; 2025 Clinic. All rights reserved.</p>
+    </footer>
+
     <script>
-        // Function to handle login
-        function handleLogin(event) {
+        // Hardcoded credentials for demonstration
+        const credentials = {
+            nurse: { username: "nurse123", password: "nursepass" },
+            doctor: { username: "doctor123", password: "doctorpass" },
+            user: { username: "user123", password: "userpass" }
+        };
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent form submission
 
-            // Get form data
-            const email = document.getElementById('email').value;
+            // Get user input
+            const role = document.getElementById('role').value;
+            const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            // Simulate login (replace with actual authentication logic)
-            if (email && password) {
-                alert(`Logged in successfully as ${email}`);
-                // Redirect to dashboard or another page
-                window.location.href = "dashboard.html";
-            } else {
-                alert("Please fill in all fields.");
+            // Check if role is selected
+            if (!role) {
+                alert("Please select a role.");
+                return;
             }
-        }
+
+            // Check if credentials are valid
+            if (username === credentials[role].username && password === credentials[role].password) {
+                alert(`Login successful as ${role}!`);
+                // Redirect to respective dashboard
+                switch (role) {
+                    case "nurse":
+                        window.location.href = "nurse-dashboard.html";
+                        break;
+                    case "doctor":
+                        window.location.href = "doctor-dashboard.html";
+                        break;
+                    case "user":
+                        window.location.href = "user-dashboard.html";
+                        break;
+                }
+            } else {
+                // Show error message
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        });
     </script>
 </body>
 </html>
