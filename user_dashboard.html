@@ -19,7 +19,7 @@
 
     <section>
         <h2>Welcome, User!</h2>
-        <p>This is your dashboard where you can check your medical results and proceed with payments for services.</p>
+        <p>This is your dashboard where you can check your medical results, proceed with payments for services, and book new appointments.</p>
     </section>
 
     <!-- Check Results Section -->
@@ -78,7 +78,7 @@
                     <td>March 5, 2025</td>
                     <td>$50</td>
                     <td>Unpaid</td>
-                    <td><button class="pay-btn">Pay Now</button></td>
+                    <td><button class="pay-btn" onclick="processPayment('Blood Test', 50)">Pay Now</button></td>
                 </tr>
                 <tr>
                     <td>Physical Checkup</td>
@@ -92,18 +92,63 @@
                     <td>March 4, 2025</td>
                     <td>$100</td>
                     <td>Unpaid</td>
-                    <td><button class="pay-btn">Pay Now</button></td>
+                    <td><button class="pay-btn" onclick="processPayment('X-Ray', 100)">Pay Now</button></td>
                 </tr>
             </tbody>
         </table>
     </section>
 
+    <!-- Book Appointment Section -->
+    <section>
+        <h3>Book New Appointment</h3>
+        <p>Use the form below to schedule an appointment with a healthcare professional.</p>
+        <form id="appointment-form" onsubmit="bookAppointment(event)">
+            <label for="appointment-date">Select Date:</label>
+            <input type="date" id="appointment-date" name="appointment-date" required>
+            <label for="appointment-time">Select Time:</label>
+            <input type="time" id="appointment-time" name="appointment-time" required>
+            <label for="appointment-doctor">Select Doctor:</label>
+            <select id="appointment-doctor" name="appointment-doctor" required>
+                <option value="Dr. Smith">Dr. Smith</option>
+                <option value="Dr. Johnson">Dr. Johnson</option>
+                <option value="Dr. Lee">Dr. Lee</option>
+            </select>
+            <button type="submit">Book Appointment</button>
+        </form>
+        <p id="appointment-confirmation" style="display:none; color: green;">Your appointment has been booked successfully!</p>
+    </section>
+
     <script>
-        document.querySelectorAll('.pay-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                alert('Payment processing feature will be implemented soon.');
-            });
-        });
+        // Function to handle payment
+        function processPayment(service, amount) {
+            const confirmation = confirm(`Do you want to pay $${amount} for the ${service}?`);
+            if (confirmation) {
+                // Simulate successful payment
+                alert(`Payment of $${amount} for ${service} has been processed successfully!`);
+                // You can update the status here (for demonstration purposes, we will just disable the button)
+                const row = event.target.closest('tr');
+                row.querySelector('td:nth-child(4)').innerText = 'Paid';
+                row.querySelector('button').disabled = true;
+            } else {
+                alert('Payment was not processed.');
+            }
+        }
+
+        // Function to handle appointment booking
+        function bookAppointment(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get form data
+            const appointmentDate = document.getElementById('appointment-date').value;
+            const appointmentTime = document.getElementById('appointment-time').value;
+            const appointmentDoctor = document.getElementById('appointment-doctor').value;
+
+            // Simulate appointment booking
+            alert(`Appointment booked with ${appointmentDoctor} on ${appointmentDate} at ${appointmentTime}.`);
+            
+            // Display confirmation message
+            document.getElementById('appointment-confirmation').style.display = 'block';
+        }
     </script>
 </body>
 </html>
