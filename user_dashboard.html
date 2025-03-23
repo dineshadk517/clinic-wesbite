@@ -4,194 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="logout.html">Logout</a></li>
-            </ul>
-        </nav>
+        <h1>Welcome, User!</h1>
+        <p>This is your dashboard where you can manage your appointments and medical records.</p>
     </header>
 
-    <section>
-        <h2>Welcome, User!</h2>
-        <p>This is your dashboard where you can check your medical results, proceed with payments for services, book new appointments, and manage your profile.</p>
-    </section>
+    <div class="container">
+        <h2>Your Appointments</h2>
+        <p>No upcoming appointments.</p>
+    </div>
 
-    <!-- Profile Management Section -->
-    <section>
-        <h3>Manage Your Profile</h3>
-        <p>Update your personal details, contact information, and medical history here.</p>
-        <form id="profile-form" onsubmit="updateProfile(event)">
-            <label for="full-name">Full Name:</label>
-            <input type="text" id="full-name" name="full-name" placeholder="Enter your full name" required>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
-
-            <label for="phone">Phone Number:</label>
-            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
-
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" placeholder="Enter your address" required>
-
-            <label for="medical-history">Medical History:</label>
-            <textarea id="medical-history" name="medical-history" rows="5" placeholder="Enter your medical history"></textarea>
-
-            <button type="submit">Update Profile</button>
-        </form>
-        <p id="profile-update-confirmation" style="display:none; color: green;">Your profile has been updated successfully!</p>
-    </section>
-
-    <!-- Book Appointment Section -->
-    <section>
-        <h3>Book New Appointment</h3>
-        <p>Use the form below to schedule an appointment with a healthcare professional.</p>
-        <form id="appointment-form" onsubmit="bookAppointment(event)">
-            <label for="appointment-date">Select Date:</label>
-            <input type="date" id="appointment-date" name="appointment-date" required>
-            <label for="appointment-time">Select Time:</label>
-            <input type="time" id="appointment-time" name="appointment-time" required>
-            <label for="appointment-doctor">Select Doctor:</label>
-            <select id="appointment-doctor" name="appointment-doctor" required>
-                <option value="Dr. Smith">Dr. Smith</option>
-                <option value="Dr. Johnson">Dr. Johnson</option>
-                <option value="Dr. Lee">Dr. Lee</option>
-            </select>
-            <button type="submit">Book Appointment</button>
-        </form>
-        <p id="appointment-confirmation" style="display:none; color: green;">Your appointment has been booked successfully!</p>
-    </section>
-
-    <!-- Check Results Section -->
-    <section>
-        <h3>Check Your Results</h3>
-        <p>Here you can view your latest medical test results and appointments.</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Test Name</th>
-                    <th>Date</th>
-                    <th>Result</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Blood Test</td>
-                    <td>March 5, 2025</td>
-                    <td>Normal</td>
-                    <td>Completed</td>
-                </tr>
-                <tr>
-                    <td>X-Ray</td>
-                    <td>March 4, 2025</td>
-                    <td>Pending</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>Physical Checkup</td>
-                    <td>March 3, 2025</td>
-                    <td>Normal</td>
-                    <td>Completed</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-
-    <!-- Proceed with Payments Section -->
-    <section>
-        <h3>Proceed with Payments</h3>
-        <p>View your outstanding payments for the services you have received and proceed with payments here.</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Service</th>
-                    <th>Date</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Blood Test</td>
-                    <td>March 5, 2025</td>
-                    <td>$50</td>
-                    <td>Unpaid</td>
-                    <td><button class="pay-btn" onclick="processPayment('Blood Test', 50)">Pay Now</button></td>
-                </tr>
-                <tr>
-                    <td>Physical Checkup</td>
-                    <td>March 3, 2025</td>
-                    <td>$80</td>
-                    <td>Paid</td>
-                    <td><button disabled>Paid</button></td>
-                </tr>
-                <tr>
-                    <td>X-Ray</td>
-                    <td>March 4, 2025</td>
-                    <td>$100</td>
-                    <td>Unpaid</td>
-                    <td><button class="pay-btn" onclick="processPayment('X-Ray', 100)">Pay Now</button></td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-
-    <script>
-        // Function to handle payment
-        function processPayment(service, amount) {
-            const confirmation = confirm(`Do you want to pay $${amount} for the ${service}?`);
-            if (confirmation) {
-                // Simulate successful payment
-                alert(`Payment of $${amount} for ${service} has been processed successfully!`);
-                // You can update the status here (for demonstration purposes, we will just disable the button)
-                const row = event.target.closest('tr');
-                row.querySelector('td:nth-child(4)').innerText = 'Paid';
-                row.querySelector('button').disabled = true;
-            } else {
-                alert('Payment was not processed.');
-            }
-        }
-
-        // Function to handle appointment booking
-        function bookAppointment(event) {
-            event.preventDefault(); // Prevent form submission
-
-            // Get form data
-            const appointmentDate = document.getElementById('appointment-date').value;
-            const appointmentTime = document.getElementById('appointment-time').value;
-            const appointmentDoctor = document.getElementById('appointment-doctor').value;
-
-            // Simulate appointment booking
-            alert(`Appointment booked with ${appointmentDoctor} on ${appointmentDate} at ${appointmentTime}.`);
-            
-            // Display confirmation message
-            document.getElementById('appointment-confirmation').style.display = 'block';
-        }
-
-        // Function to handle profile updates
-        function updateProfile(event) {
-            event.preventDefault(); // Prevent form submission
-
-            // Get form data
-            const fullName = document.getElementById('full-name').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const address = document.getElementById('address').value;
-            const medicalHistory = document.getElementById('medical-history').value;
-
-            // Simulate profile update
-            alert(`Profile updated successfully!\nName: ${fullName}\nEmail: ${email}\nPhone: ${phone}\nAddress: ${address}\nMedical History: ${medicalHistory}`);
-            
-            // Display confirmation message
-            document.getElementById('profile-update-confirmation').style.display = 'block';
-        }
-    </script>
+    <footer>
+        <p>&copy; 2025 Clinic. All rights reserved.</p>
+    </footer>
 </body>
 </html>
