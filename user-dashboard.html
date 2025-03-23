@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles for the user dashboard */
+        .dashboard-section {
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        table th {
+            background-color: #007BFF;
+            color: white;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .action-buttons button {
+            margin-right: 5px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group button {
+            padding: 8px 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome, User!</h1>
+        <p>This is your dashboard where you can book appointments, pay bills, check results, and update your details.</p>
+        <a href="logout.php" style="color: white; text-decoration: none;">Logout</a>
+    </header>
+
+    <div class="container">
+        <!-- Book Appointment Section -->
+        <div class="dashboard-section">
+            <h2>Book Appointment</h2>
+            <form id="appointmentForm" onsubmit="bookAppointment(event)">
+                <div class="form-group">
+                    <label for="doctor">Select Doctor:</label>
+                    <select id="doctor" required>
+                        <option value="">-- Select Doctor --</option>
+                        <option value="Dinesh KC">Dinesh KC</option>
+                        <option value="Aaryan DC">Aaryan DC</option>
+                        <option value="Saket Patel">Saket Patel</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentDate">Appointment Date:</label>
+                    <input type="date" id="appointmentDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentTime">Appointment Time:</label>
+                    <input type="time" id="appointmentTime" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Book Appointment</button>
+                </div>
+            </form>
+            <p id="appointmentConfirmation" style="color: green; display: none;">Appointment booked successfully!</p>
+        </div>
+
+        <!-- Pay Due Bills Section -->
+        <div class="dashboard-section">
+            <h2>Pay Due Bills</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bill ID</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>$150</td>
+                        <td>Unpaid</td>
+                        <td class="action-buttons">
+                            <button onclick="payBill(101)">Pay Now</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>102</td>
+                        <td>$200</td>
+                        <td>Paid</td>
+                        <td class="action-buttons">
+                            <button disabled>Paid</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Check Results Section -->
+        <div class="dashboard-section">
+            <h2>Check Results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test Name</th>
+                        <th>Date</th>
+                        <th>Result</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Blood Test</td>
+                        <td>2024-10-15</td>
+                        <td>Normal</td>
+                        <td>Completed</td>
+                    </tr>
+                    <tr>
+                        <td>X-Ray</td>
+                        <td>2024-10-16</td>
+                        <td>Pending</td>
+                        <td>Pending</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Update Details Section -->
+        <div class="dashboard-section">
+            <h2>Update Your Details</h2>
+            <form id="updateDetailsForm" onsubmit="updateDetails(event)">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" value="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" value="john.doe@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" value="123-456-7890" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Update Details</button>
+                </div>
+            </form>
+            <p id="updateConfirmation" style="color: green; display: none;">Details updated successfully!</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Clinic. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to book an appointment
+        function bookAppointment(event) {
+            event.preventDefault();
+            const doctor = document.getElementById('doctor').value;
+            const date = document.getElementById('appointmentDate').value;
+            const time = document.getElementById('appointmentTime').value;
+
+            if (doctor && date && time) {
+                document.getElementById('appointmentConfirmation').style.display = 'block';
+                alert(`Appointment booked with ${doctor} on ${date} at ${time}.`);
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+
+        // Function to pay a bill
+        function payBill(billId) {
+            const confirmation = confirm(`Do you want to pay the bill with ID ${billId}?`);
+            if (confirmation) {
+                alert(`Payment for bill ${billId} has been processed.`);
+                // Update the bill status (for demonstration purposes)
+                const row = event.target.closest('tr');
+                row.querySelector('td:nth-child(3)').innerText = 'Paid';
+                row.querySelector('button').disabled = true;
+            }
+        }
+
+        // Function to update user details
+        function updateDetails(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            if (name && email && phone) {
+                document.getElementById('updateConfirmation').style.display = 'block';
+                alert(`Details updated:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}`);
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+    </script>
+</body>
+</html>

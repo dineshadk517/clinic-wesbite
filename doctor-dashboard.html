@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles for the doctor dashboard */
+        .dashboard-section {
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        table th {
+            background-color: #007BFF;
+            color: white;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .action-buttons button {
+            margin-right: 5px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group button {
+            padding: 8px 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .analytics {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .analytics div {
+            text-align: center;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .analytics h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .analytics p {
+            margin: 5px 0 0;
+            font-size: 1.2rem;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome, Doctor!</h1>
+        <p>This is your dashboard where you can manage patient details, view analytics, and access medical records.</p>
+        <a href="logout.php" style="color: white; text-decoration: none;">Logout</a>
+    </header>
+
+    <div class="container">
+        <!-- Edit Patient Details Section -->
+        <div class="dashboard-section">
+            <h2>Edit Patient Details</h2>
+            <form id="editPatientForm" onsubmit="editPatientDetails(event)">
+                <div class="form-group">
+                    <label for="patientId">Patient ID:</label>
+                    <input type="text" id="patientId" required>
+                </div>
+                <div class="form-group">
+                    <label for="patientName">Name:</label>
+                    <input type="text" id="patientName" required>
+                </div>
+                <div class="form-group">
+                    <label for="patientEmail">Email:</label>
+                    <input type="email" id="patientEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="patientPhone">Phone:</label>
+                    <input type="tel" id="patientPhone" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Update Patient Details</button>
+                </div>
+            </form>
+            <p id="editPatientConfirmation" style="color: green; display: none;">Patient details updated successfully!</p>
+        </div>
+
+        <!-- System Analytics Section -->
+        <div class="dashboard-section">
+            <h2>System Analytics</h2>
+            <div class="analytics">
+                <div>
+                    <h3>Total Patients</h3>
+                    <p>1,234</p>
+                </div>
+                <div>
+                    <h3>Upcoming Appointments</h3>
+                    <p>56</p>
+                </div>
+                <div>
+                    <h3>Pending Test Results</h3>
+                    <p>12</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Appointments Section -->
+        <div class="dashboard-section">
+            <h2>Upcoming Appointments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Appointment ID</th>
+                        <th>Patient Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>John Doe</td>
+                        <td>2024-10-15</td>
+                        <td>10:00 AM</td>
+                        <td>Scheduled</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jane Smith</td>
+                        <td>2024-10-16</td>
+                        <td>11:00 AM</td>
+                        <td>Scheduled</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Test Results Section -->
+        <div class="dashboard-section">
+            <h2>Test Results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test ID</th>
+                        <th>Patient Name</th>
+                        <th>Test Name</th>
+                        <th>Result</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>John Doe</td>
+                        <td>Blood Test</td>
+                        <td>Normal</td>
+                        <td>2024-10-14</td>
+                    </tr>
+                    <tr>
+                        <td>102</td>
+                        <td>Jane Smith</td>
+                        <td>X-Ray</td>
+                        <td>Pending</td>
+                        <td>2024-10-15</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Prescription Management Section -->
+        <div class="dashboard-section">
+            <h2>Prescription Management</h2>
+            <form id="prescriptionForm" onsubmit="generatePrescription(event)">
+                <div class="form-group">
+                    <label for="patientIdPrescription">Patient ID:</label>
+                    <input type="text" id="patientIdPrescription" required>
+                </div>
+                <div class="form-group">
+                    <label for="prescriptionDetails">Prescription Details:</label>
+                    <textarea id="prescriptionDetails" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Generate Prescription</button>
+                </div>
+            </form>
+            <p id="prescriptionConfirmation" style="color: green; display: none;">Prescription generated successfully!</p>
+        </div>
+
+        <!-- Patient History Section -->
+        <div class="dashboard-section">
+            <h2>Patient History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Record ID</th>
+                        <th>Patient Name</th>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>201</td>
+                        <td>John Doe</td>
+                        <td>2024-10-10</td>
+                        <td>Prescription</td>
+                        <td>Paracetamol 500mg</td>
+                    </tr>
+                    <tr>
+                        <td>202</td>
+                        <td>Jane Smith</td>
+                        <td>2024-10-12</td>
+                        <td>Test Result</td>
+                        <td>Blood Test - Normal</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Clinic. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to edit patient details
+        function editPatientDetails(event) {
+            event.preventDefault();
+            const patientId = document.getElementById('patientId').value;
+            const patientName = document.getElementById('patientName').value;
+            const patientEmail = document.getElementById('patientEmail').value;
+            const patientPhone = document.getElementById('patientPhone').value;
+
+            if (patientId && patientName && patientEmail && patientPhone) {
+                document.getElementById('editPatientConfirmation').style.display = 'block';
+                alert(`Patient details updated:\nID: ${patientId}\nName: ${patientName}\nEmail: ${patientEmail}\nPhone: ${patientPhone}`);
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+
+        // Function to generate a prescription
+        function generatePrescription(event) {
+            event.preventDefault();
+            const patientId = document.getElementById('patientIdPrescription').value;
+            const prescriptionDetails = document.getElementById('prescriptionDetails').value;
+
+            if (patientId && prescriptionDetails) {
+                document.getElementById('prescriptionConfirmation').style.display = 'block';
+                alert(`Prescription generated for Patient ID ${patientId}:\n${prescriptionDetails}`);
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+    </script>
+</body>
+</html>
