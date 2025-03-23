@@ -4,73 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nurse Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="login.html">Logout</a></li>
-            </ul>
-        </nav>
+        <h1>Welcome, Nurse!</h1>
+        <p>This is your dashboard where you can manage patient records and appointments.</p>
+        <a href="login.html" style="color: white; text-decoration: none;">Logout</a>
     </header>
 
-    <section>
-        <h2>Welcome, Nurse!</h2>
-        <p>This is the nurse’s dashboard where you can view patient history, assist with medical procedures, and manage appointments.</p>
-    </section>
+    <div class="container">
+        <div class="login-section">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="role">Select Role:</label>
+                <select id="role" required>
+                    <option value="">-- Select Role --</option>
+                    <option value="nurse">Nurse</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="user">User (Patient)</option>
+                </select>
 
-    <!-- Appointment Booking Section -->
-    <section>
-        <h3>Book an Appointment</h3>
-        <form action="book_appointment.php" method="POST">
-            <label for="patient-name">Patient Name:</label>
-            <input type="text" id="patient-name" name="patient-name" required>
-
-            <label for="appointment-date">Appointment Date:</label>
-            <input type="datetime-local" id="appointment-date" name="appointment-date" required>
-
-            <label for="procedure">Procedure Type:</label>
-            <select id="procedure" name="procedure" required>
-                <option value="Blood Test">Blood Test</option>
-                <option value="Physical Checkup">Physical Checkup</option>
-                <option value="X-Ray">X-Ray</option>
-                <option value="MRI">MRI</option>
-            </select>
-
-            <label for="notes">Additional Notes:</label>
-            <textarea id="notes" name="notes" rows="4" placeholder="Enter any special instructions..."></textarea>
-
-            <button type="submit">Book Appointment</button>
-        </form>
-    </section>
-
-    <!-- Patient History Section -->
-    <section>
-        <h3>Patient History</h3>
-        <p>View a patient's medical history or past appointments here.</p>
-        <input type="text" placeholder="Search by Patient Name" id="search-patient">
-        <button>Search</button>
-
-        <!-- Example of Patient History -->
-        <div class="patient-history">
-            <p><strong>Aaryan kc</strong> - Blood Test on March 5, 2025, 9:00 AM</p>
-            <p><strong>Aaron kc</strong> - Physical Checkup on March 4, 2025, 2:00 PM</p>
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p id="errorMessage" style="color: red; display: none;">Invalid username or password.</p>
         </div>
-    </section>
-
-    <!-- Notifications Section -->
-    <section>
-        <h3>Notifications</h3>
-        <ul>
-            <li>Upcoming appointment with John Doe at 10:00 AM tomorrow.</li>
-            <li>Reminder: X-Ray procedure for Jane Smith scheduled for 2:00 PM today.</li>
-        </ul>
-    </section>
+    </div>
 
     <footer>
         <p>&copy; 2025 Clinic. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Hardcoded credentials for demonstration
+        const credentials = {
+            nurse: { username: "nurse1", password: "1234" },
+            doctor: { username: "doctor1", password: "1234" },
+            user: { username: "user1", password: "1234" }
+        };
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get user input
+            const role = document.getElementById('role').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Check if role is selected
+            if (!role) {
+                alert("Please select a role.");
+                return;
+            }
+
+            // Check if credentials are valid
+            if (username === credentials[role].username && password === credentials[role].password) {
+                alert(`Login successful as ${role}!`);
+                // Redirect to respective dashboard
+                switch (role) {
+                    case "nurse":
+                        window.location.href = "nurse-dashboard.html";
+                        break;
+                    case "doctor":
+                        window.location.href = "doctor-dashboard.html";
+                        break;
+                    case "user":
+                        window.location.href = "user-dashboard.html";
+                        break;
+                }
+            } else {
+                // Show error message
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        });
+    </script>
 </body>
 </html>
