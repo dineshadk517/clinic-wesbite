@@ -4,44 +4,161 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nurse Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+        /* Additional styles for the nurse dashboard */
+        .dashboard-section {
+            margin-bottom: 30px;
         }
-        header {
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        table th {
             background-color: #007BFF;
             color: white;
-            padding: 20px;
-            text-align: center;
         }
-        .container {
-            padding: 20px;
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        .action-buttons button {
+            margin-right: 5px;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>Welcome, Nurse!</h1>
-        <p>This is your dashboard where you can manage patient records and appointments.</p>
-        <a href="login.html" style="color: white; text-decoration: none;">Logout</a>
+        <p>This is your dashboard where you can manage patient records, appointments, and billing.</p>
+        <a href="logout.php" style="color: white; text-decoration: none;">Logout</a>
     </header>
 
     <div class="container">
-        <h2>Patient Records</h2>
-        <p>No records available.</p>
+        <!-- Booking Management Section -->
+        <div class="dashboard-section">
+            <h2>Booking Management</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Appointment ID</th>
+                        <th>Patient Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>John Adhikari</td>
+                        <td>2024-10-15</td>
+                        <td>10:00 AM</td>
+                        <td>Scheduled</td>
+                        <td class="action-buttons">
+                            <button>Edit</button>
+                            <button>Cancel</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Babina Adhikari</td>
+                        <td>2024-10-16</td>
+                        <td>11:00 AM</td>
+                        <td>Completed</td>
+                        <td class="action-buttons">
+                            <button>Edit</button>
+                            <button>Cancel</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button style="margin-top: 10px;">Add New Appointment</button>
+        </div>
+
+        <!-- Sending Bills Section -->
+        <div class="dashboard-section">
+            <h2>Sending Bills</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bill ID</th>
+                        <th>Patient Name</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>John Adhikari</td>
+                        <td>$150</td>
+                        <td>Unpaid</td>
+                        <td class="action-buttons">
+                            <button>Send Bill</button>
+                            <button>View Details</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>102</td>
+                        <td>Jane Smith</td>
+                        <td>$200</td>
+                        <td>Paid</td>
+                        <td class="action-buttons">
+                            <button>Send Bill</button>
+                            <button>View Details</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button style="margin-top: 10px;">Generate New Bill</button>
+        </div>
+
+        <!-- Patient List Section -->
+        <div class="dashboard-section">
+            <h2>Patient List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>John Adhikari</td>
+                        <td>john@gmail.com</td>
+                        <td>0948393933</td>
+                        <td class="action-buttons">
+                            <button>View</button>
+                            <button>Edit</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jane Smith</td>
+                        <td>jane.smith@example.com</td>
+                        <td>987-654-3210</td>
+                        <td class="action-buttons">
+                            <button>View</button>
+                            <button>Edit</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button style="margin-top: 10px;">Add New Patient</button>
+        </div>
     </div>
 
     <footer>
