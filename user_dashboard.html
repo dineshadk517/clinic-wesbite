@@ -22,6 +22,26 @@
         <p>This is your dashboard where you can check your medical results, proceed with payments for services, and book new appointments.</p>
     </section>
 
+    <!-- Book Appointment Section -->
+    <section>
+        <h3>Book New Appointment</h3>
+        <p>Use the form below to schedule an appointment with a healthcare professional.</p>
+        <form id="appointment-form" onsubmit="bookAppointment(event)">
+            <label for="appointment-date">Select Date:</label>
+            <input type="date" id="appointment-date" name="appointment-date" required>
+            <label for="appointment-time">Select Time:</label>
+            <input type="time" id="appointment-time" name="appointment-time" required>
+            <label for="appointment-doctor">Select Doctor:</label>
+            <select id="appointment-doctor" name="appointment-doctor" required>
+                <option value="Dr. Smith">Dr. Smith</option>
+                <option value="Dr. Johnson">Dr. Johnson</option>
+                <option value="Dr. Lee">Dr. Lee</option>
+            </select>
+            <button type="submit">Book Appointment</button>
+        </form>
+        <p id="appointment-confirmation" style="display:none; color: green;">Your appointment has been booked successfully!</p>
+    </section>
+
     <!-- Check Results Section -->
     <section>
         <h3>Check Your Results</h3>
@@ -98,25 +118,7 @@
         </table>
     </section>
 
-    <!-- Book Appointment Section -->
-    <section>
-        <h3>Book New Appointment</h3>
-        <p>Use the form below to schedule an appointment with a healthcare professional.</p>
-        <form id="appointment-form" onsubmit="bookAppointment(event)">
-            <label for="appointment-date">Select Date:</label>
-            <input type="date" id="appointment-date" name="appointment-date" required>
-            <label for="appointment-time">Select Time:</label>
-            <input type="time" id="appointment-time" name="appointment-time" required>
-            <label for="appointment-doctor">Select Doctor:</label>
-            <select id="appointment-doctor" name="appointment-doctor" required>
-                <option value="Dr. Smith">Dr. Smith</option>
-                <option value="Dr. Johnson">Dr. Johnson</option>
-                <option value="Dr. Lee">Dr. Lee</option>
-            </select>
-            <button type="submit">Book Appointment</button>
-        </form>
-        <p id="appointment-confirmation" style="display:none; color: green;">Your appointment has been booked successfully!</p>
-    </section>
+    
 
     <script>
         // Function to handle payment
