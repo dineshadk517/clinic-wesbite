@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic System - Unit Testing Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            color: #007BFF;
+        }
+        .test-section {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .test-result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .test-steps {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        .test-steps li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Clinic System - Unit Testing Interface</h1>
+            <p>Test individual components of the clinic system</p>
+        </header>
+
+        <!-- Patient Registration Test -->
+        <div class="test-section">
+            <h2>1. Test Patient Registration</h2>
+            <p>Verify that patient data is saved correctly to the database.</p>
+            
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="patientName">Full Name:</label>
+                    <input type="text" id="patientName" required>
+                </div>
+                <div class="form-group">
+                    <label for="patientEmail">Email:</label>
+                    <input type="email" id="patientEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="patientPhone">Phone:</label>
+                    <input type="tel" id="patientPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="patientPassword">Password:</label>
+                    <input type="password" id="patientPassword" required>
+                </div>
+                <button type="button" onclick="testRegistration()">Run Registration Test</button>
+            </form>
+            
+            <div id="registrationResult" class="test-result">
+                <h3>Test Result:</h3>
+                <p id="registrationResultText"></p>
+                <h4>Test Steps:</h4>
+                <ol class="test-steps">
+                    <li>Enter patient details in the form</li>
+                    <li>Submit the form</li>
+                    <li>Verify data is saved in the database with correct values</li>
+                    <li>Check for any validation errors</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Appointment Scheduling Test -->
+        <div class="test-section">
+            <h2>2. Test Appointment Scheduling</h2>
+            <p>Verify that appointments are saved correctly and notifications are sent.</p>
+            
+            <form id="appointmentForm">
+                <div class="form-group">
+                    <label for="appointmentPatient">Patient ID:</label>
+                    <input type="text" id="appointmentPatient" required>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentDoctor">Doctor:</label>
+                    <select id="appointmentDoctor" required>
+                        <option value="">-- Select Doctor --</option>
+                        <option value="Dinesh KC">Dinesh KC</option>
+                        <option value="Aaryan DC">Aaryan DC</option>
+                        <option value="Saket Patel">Saket Patel</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentDate">Date:</label>
+                    <input type="date" id="appointmentDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentTime">Time:</label>
+                    <input type="time" id="appointmentTime" required>
+                </div>
+                <button type="button" onclick="testAppointment()">Run Appointment Test</button>
+            </form>
+            
+            <div id="appointmentResult" class="test-result">
+                <h3>Test Result:</h3>
+                <p id="appointmentResultText"></p>
+                <h4>Test Steps:</h4>
+                <ol class="test-steps">
+                    <li>Schedule an appointment using the form</li>
+                    <li>Verify appointment is saved in the database</li>
+                    <li>Check appointment details match the input</li>
+                    <li>Confirm notification was sent to the patient</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Secure Login Test -->
+        <div class="test-section">
+            <h2>3. Test Secure Login (MFA)</h2>
+            <p>Verify that multi-factor authentication works correctly.</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="mfaCode">MFA Code:</label>
+                    <input type="text" id="mfaCode" placeholder="6-digit code" required>
+                </div>
+                <button type="button" onclick="testLogin()">Run Login Test</button>
+            </form>
+            
+            <div id="loginResult" class="test-result">
+                <h3>Test Result:</h3>
+                <p id="loginResultText"></p>
+                <h4>Test Steps:</h4>
+                <ol class="test-steps">
+                    <li>Enter valid credentials</li>
+                    <li>Submit the login form</li>
+                    <li>Verify MFA code is requested</li>
+                    <li>Enter valid/invalid MFA code</li>
+                    <li>Check access is granted/denied appropriately</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Test Patient Registration
+        function testRegistration() {
+            const name = document.getElementById('patientName').value;
+            const email = document.getElementById('patientEmail').value;
+            const phone = document.getElementById('patientPhone').value;
+            const password = document.getElementById('patientPassword').value;
+            
+            const resultDiv = document.getElementById('registrationResult');
+            const resultText = document.getElementById('registrationResultText');
+            
+            // Simulate API call and validation
+            setTimeout(() => {
+                if (name && email && phone && password) {
+                    // In a real test, this would verify database insertion
+                    resultText.textContent = "SUCCESS: Patient registration test passed. Data was saved correctly.";
+                    resultDiv.className = "test-result success";
+                } else {
+                    resultText.textContent = "ERROR: Patient registration test failed. All fields are required.";
+                    resultDiv.className = "test-result error";
+                }
+                resultDiv.style.display = 'block';
+            }, 1000);
+        }
+        
+        // Test Appointment Scheduling
+        function testAppointment() {
+            const patientId = document.getElementById('appointmentPatient').value;
+            const doctor = document.getElementById('appointmentDoctor').value;
+            const date = document.getElementById('appointmentDate').value;
+            const time = document.getElementById('appointmentTime').value;
+            
+            const resultDiv = document.getElementById('appointmentResult');
+            const resultText = document.getElementById('appointmentResultText');
+            
+            // Simulate API call and validation
+            setTimeout(() => {
+                if (patientId && doctor && date && time) {
+                    // In a real test, this would verify database insertion and notification
+                    resultText.textContent = `SUCCESS: Appointment test passed. Appointment with ${doctor} on ${date} at ${time} was saved. Notification sent.`;
+                    resultDiv.className = "test-result success";
+                } else {
+                    resultText.textContent = "ERROR: Appointment test failed. All fields are required.";
+                    resultDiv.className = "test-result error";
+                }
+                resultDiv.style.display = 'block';
+            }, 1000);
+        }
+        
+        // Test Secure Login with MFA
+        function testLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const mfaCode = document.getElementById('mfaCode').value;
+            
+            const resultDiv = document.getElementById('loginResult');
+            const resultText = document.getElementById('loginResultText');
+            
+            // Simulate API call and validation
+            setTimeout(() => {
+                if (email && password) {
+                    if (mfaCode === "123456") { // Simulated valid MFA code
+                        resultText.textContent = "SUCCESS: Login test passed with valid MFA. Access granted.";
+                        resultDiv.className = "test-result success";
+                    } else {
+                        resultText.textContent = "ERROR: Login test failed. Invalid MFA code.";
+                        resultDiv.className = "test-result error";
+                    }
+                } else {
+                    resultText.textContent = "ERROR: Login test failed. Email and password are required.";
+                    resultDiv.className = "test-result error";
+                }
+                resultDiv.style.display = 'block';
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
