@@ -1,37 +1,35 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clinic System - Integration Testing Interface</title>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            color: #333;
+        /* Additional styles for the user dashboard */
+        .dashboard-section {
+            margin-bottom: 30px;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
-        header {
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        table th {
             background-color: #007BFF;
             color: white;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
         }
-        h1, h2 {
-            color: #007BFF;
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
-        .test-section {
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 20px;
-            margin-bottom: 20px;
+        .action-buttons button {
+            margin-right: 5px;
         }
         .form-group {
             margin-bottom: 15px;
@@ -46,77 +44,35 @@
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            box-sizing: border-box;
         }
-        button {
+        .form-group button {
+            padding: 8px 16px;
             background-color: #007BFF;
             color: white;
             border: none;
-            padding: 10px 15px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
         }
-        button:hover {
+        .form-group button:hover {
             background-color: #0056b3;
-        }
-        .test-result {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 4px;
-            display: none;
-        }
-        .success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        .test-steps {
-            margin-top: 10px;
-            padding-left: 20px;
-        }
-        .test-steps li {
-            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Welcome, Deependra!</h1>
+        <p>you can book appointments, pay bills, check results, and update your details.</p>
+        <a href="logout.php" style="color: white; text-decoration: none;">Logout</a>
+    </header>
+
     <div class="container">
-        <header>
-            <h1>Clinic System - Integration Testing Interface</h1>
-            <p>Test integration of components in the clinic system</p>
-        </header>
-
-        <!-- Integration Testing for Patient Registration and Appointment -->
-        <div class="test-section">
-            <h2>1. Integration Test: Linking Patient Data to Appointments</h2>
-            <p>Verify that the patient data is correctly linked to the appointment when scheduled.</p>
-            
-            <form id="registrationForm">
+        <!-- Book Appointment Section -->
+        <div class="dashboard-section">
+            <h2>Book Appointment</h2>
+            <form id="appointmentForm" onsubmit="bookAppointment(event)">
                 <div class="form-group">
-                    <label for="patientName">Full Name:</label>
-                    <input type="text" id="patientName" required>
-                </div>
-                <div class="form-group">
-                    <label for="patientEmail">Email:</label>
-                    <input type="email" id="patientEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="patientPhone">Phone:</label>
-                    <input type="tel" id="patientPhone" required>
-                </div>
-                <button type="button" onclick="registerPatient()">Register Patient</button>
-            </form>
-
-            <form id="appointmentForm">
-                <div class="form-group">
-                    <label for="appointmentDoctor">Doctor:</label>
-                    <select id="appointmentDoctor" required>
+                    <label for="doctor">Select Doctor:</label>
+                    <select id="doctor" required>
                         <option value="">-- Select Doctor --</option>
                         <option value="Dinesh KC">Dinesh KC</option>
                         <option value="Aaryan DC">Aaryan DC</option>
@@ -124,67 +80,153 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="appointmentDate">Date:</label>
+                    <label for="appointmentDate">Appointment Date:</label>
                     <input type="date" id="appointmentDate" required>
                 </div>
                 <div class="form-group">
-                    <label for="appointmentTime">Time:</label>
+                    <label for="appointmentTime">Appointment Time:</label>
                     <input type="time" id="appointmentTime" required>
                 </div>
-                <button type="button" onclick="scheduleAppointment()">Schedule Appointment</button>
+                <div class="form-group">
+                    <button type="submit">Book Appointment</button>
+                </div>
             </form>
-            
-            <div id="integrationResult" class="test-result">
-                <h3>Test Result:</h3>
-                <p id="integrationResultText"></p>
-                <h4>Test Steps:</h4>
-                <ol class="test-steps">
-                    <li>Register a new patient</li>
-                    <li>Schedule an appointment for the patient</li>
-                    <li>Verify that patient data is linked to the appointment</li>
-                    <li>Confirm notification was sent to the patient</li>
-                </ol>
-            </div>
+            <p id="appointmentConfirmation" style="color: green; display: none;">Appointment booked successfully!</p>
+        </div>
+
+        <!-- Pay Due Bills Section -->
+        <div class="dashboard-section">
+            <h2>Pay Due Bills</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bill ID</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>$150</td>
+                        <td>Unpaid</td>
+                        <td class="action-buttons">
+                            <button onclick="payBill(101)">Pay Now</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>102</td>
+                        <td>$200</td>
+                        <td>Paid</td>
+                        <td class="action-buttons">
+                            <button disabled>Paid</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Check Results Section -->
+        <div class="dashboard-section">
+            <h2>Check Results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test Name</th>
+                        <th>Date</th>
+                        <th>Result</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Blood Test</td>
+                        <td>2024-10-15</td>
+                        <td>Normal</td>
+                        <td>Completed</td>
+                    </tr>
+                    <tr>
+                        <td>X-Ray</td>
+                        <td>2024-10-16</td>
+                        <td>Pending</td>
+                        <td>Pending</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Update Details Section -->
+        <div class="dashboard-section">
+            <h2>Update Your Details</h2>
+            <form id="updateDetailsForm" onsubmit="updateDetails(event)">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" value="Deependra" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" value="deependra@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" value="099876456" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Update Details</button>
+                </div>
+            </form>
+            <p id="updateConfirmation" style="color: green; display: none;">Details updated successfully!</p>
         </div>
     </div>
 
+    <footer>
+        <p>&copy; 2025 Clinic. All rights reserved.</p>
+    </footer>
+
     <script>
-        let patientData = {}; // Store patient data globally for linking later
-
-        // Register Patient
-        function registerPatient() {
-            const name = document.getElementById('patientName').value;
-            const email = document.getElementById('patientEmail').value;
-            const phone = document.getElementById('patientPhone').value;
-            
-            if (name && email && phone) {
-                patientData = { name, email, phone }; // Store the registered patient info
-                alert('Patient registered successfully!');
-            } else {
-                alert('Please fill in all the details for registration.');
-            }
-        }
-
-        // Schedule Appointment and Link to Patient
-        function scheduleAppointment() {
-            const doctor = document.getElementById('appointmentDoctor').value;
+        // Function to book an appointment
+        function bookAppointment(event) {
+            event.preventDefault();
+            const doctor = document.getElementById('doctor').value;
             const date = document.getElementById('appointmentDate').value;
             const time = document.getElementById('appointmentTime').value;
 
-            if (doctor && date && time && patientData.name) {
-                const resultDiv = document.getElementById('integrationResult');
-                const resultText = document.getElementById('integrationResultText');
-                
-                // Simulate appointment and notification
-                setTimeout(() => {
-                    resultText.innerHTML = `SUCCESS: Appointment scheduled for ${patientData.name} with Dr. ${doctor} on ${date} at ${time}.<br>Notification sent to ${patientData.email}.`;
-                    resultDiv.className = "test-result success";
-                    resultDiv.style.display = 'block';
-                }, 1000);
+            if (doctor && date && time) {
+                document.getElementById('appointmentConfirmation').style.display = 'block';
+                alert(`Appointment booked with ${doctor} on ${date} at ${time}.`);
             } else {
-                alert('Please complete the appointment details and ensure a patient is registered.');
+                alert('Please fill in all fields.');
+            }
+        }
+
+        // Function to pay a bill
+        function payBill(billId) {
+            const confirmation = confirm(`Do you want to pay the bill with ID ${billId}?`);
+            if (confirmation) {
+                alert(`Payment for bill ${billId} has been processed.`);
+                // Update the bill status (for demonstration purposes)
+                const row = event.target.closest('tr');
+                row.querySelector('td:nth-child(3)').innerText = 'Paid';
+                row.querySelector('button').disabled = true;
+            }
+        }
+
+        // Function to update user details
+        function updateDetails(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            if (name && email && phone) {
+                document.getElementById('updateConfirmation').style.display = 'block';
+                alert(`Details updated:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}`);
+            } else {
+                alert('Please fill in all fields.');
             }
         }
     </script>
 </body>
 </html>
+
