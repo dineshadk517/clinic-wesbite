@@ -3,91 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password</title>
+    <title>Clinic Login</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 0;
             margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            text-align: center;
         }
         .container {
+            padding: 20px;
+        }
+        .login-section {
+            background-color: white;
+            padding: 20px;
+            margin: 20px auto;
             max-width: 400px;
-            margin: 80px auto;
-            background: #fff;
-            padding: 30px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        h2 {
-            text-align: center;
-            color: #007BFF;
+        .login-section h2 {
+            margin-bottom: 20px;
         }
-        input[type="email"] {
+        .login-section input,
+        .login-section select {
             width: 100%;
-            padding: 12px;
-            margin: 15px 0;
+            padding: 10px;
+            margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        button {
+        .login-section button {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background-color: #007BFF;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            margin-top: 10px;
         }
-        button:hover {
+        .login-section button:hover {
             background-color: #0056b3;
         }
-        .message {
-            text-align: center;
-            margin-top: 20px;
-            color: green;
+        .forgot-password {
+            text-align: right;
+            margin-top: 10px;
         }
-        .back-link {
-            text-align: center;
-            margin-top: 15px;
-        }
-        .back-link a {
+        .forgot-password a {
             color: #007BFF;
             text-decoration: none;
+            font-size: 14px;
         }
-        .back-link a:hover {
+        .forgot-password a:hover {
             text-decoration: underline;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Welcome to Our Clinic</h1>
+        <p>Your health is our top priority. Book appointments, access medical records, and more.</p>
+    </header>
 
-<div class="container">
-    <h2>Reset Password</h2>
-    <form id="resetForm">
-        <input type="email" id="email" placeholder="Enter your registered email" required>
-        <button type="submit">Send Reset Link</button>
-    </form>
-    <div class="message" id="message"></div>
-    <div class="back-link">
-        <a href="login.html">Back to Login</a>
+    <div class="container">
+        <div class="login-section">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="role">Select Role:</label>
+                <select id="role" required>
+                    <option value="">-- Select Role --</option>
+                    <option value="nurse">Nurse</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="user">User (Patient)</option>
+                </select>
+
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+
+                <div class="forgot-password">
+                    <a href="reset-password.html">Forgot Password?</a>
+                </div>
+            </form>
+            <p id="errorMessage" style="color: red; display: none;">Invalid username or password.</p>
+        </div>
     </div>
-</div>
 
-<script>
-    document.getElementById('resetForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+    <footer>
+        <p>&copy; 2025 Clinic. All rights reserved.</p>
+    </footer>
 
-        const email = document.getElementById('email').value;
-        
-        // For demo: pretend the reset link was sent
-        document.getElementById('message').textContent = 
-            `If ${email} is a registered email, a password reset link has been sent.`;
-        
-        document.getElementById('resetForm').reset();
-    });
-</script>
+    <script>
+        // Hardcoded credentials for demonstration
+        const credentials = {
+            nurse: { username: "nurse", password: "1234" },
+            doctor: { username: "doctor", password: "1234" },
+            user: { username: "user", password: "1234" }
+        };
 
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const role = document.getElementById('role').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (!role) {
+                alert("Please select a role.");
+                return;
+            }
+
+            if (username === credentials[role]?.username && password === credentials[role]?.password) {
+                alert(`Login successful as ${role}!`);
+                switch (role) {
+                    case "nurse":
+                        window.location.href = "nurse-dashboard.html";
+                        break;
+                    case "doctor":
+                        window.location.href = "doctor-dashboard.html";
+                        break;
+                    case "user":
+                        window.location.href = "user-dashboard.html";
+                        break;
+                }
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        });
+    </script>
 </body>
 </html>
