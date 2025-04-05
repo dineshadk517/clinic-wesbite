@@ -13,7 +13,7 @@
             color: #333;
         }
         header {
-            background-color: #007BFF;
+            background-color: #488dd6;
             color: white;
             padding: 20px;
             text-align: center;
@@ -30,6 +30,9 @@
             color: white;
             text-decoration: none;
             border-radius: 5px;
+        }
+        .container a:hover {
+            background-color: #0056b3;
         }
         footer {
             background-color: #333;
@@ -55,77 +58,5 @@
     <footer>
         <p>&copy; 2025 Clinic. All rights reserved.</p>
     </footer>
-    <script>
-        const loginForm = document.getElementById("loginForm");
-        const mfaSection = document.getElementById("mfaSection");
-        const loginPage = document.getElementById("loginPage");
-        const dashboard = document.getElementById("dashboard");
-        const verifyMfa = document.getElementById("verifyMfa");
-        const loginError = document.getElementById("loginError");
-        const logoutBtn = document.getElementById("logoutBtn");
-    
-        // Dummy login and MFA credentials
-        const adminUser = "admin";
-        const adminPass = "admin123";
-        const mfaCodeExpected = "123456";
-    
-        loginForm.addEventListener("submit", function(e) {
-            e.preventDefault();
-            const username = document.getElementById("username").value.trim();
-            const password = document.getElementById("password").value.trim();
-    
-            if (username === adminUser && password === adminPass) {
-                loginError.style.display = "none";
-                mfaSection.style.display = "block";
-            } else {
-                loginError.textContent = "Invalid username or password!";
-                loginError.style.display = "block";
-            }
-        });
-    
-        verifyMfa.addEventListener("click", () => {
-            const code = document.getElementById("mfaCode").value.trim();
-            if (code === mfaCodeExpected) {
-                loginPage.style.display = "none";
-                dashboard.style.display = "flex";
-            } else {
-                loginError.textContent = "Invalid MFA code!";
-                loginError.style.display = "block";
-            }
-        });
-    
-        logoutBtn.addEventListener("click", () => {
-            // Reset login state
-            loginForm.reset();
-            document.getElementById("mfaCode").value = "";
-            mfaSection.style.display = "none";
-            loginPage.style.display = "flex";
-            dashboard.style.display = "none";
-        });
-    
-        // Section switching
-        const menuItems = document.querySelectorAll(".menu-item");
-        const sections = document.querySelectorAll(".content-section");
-        const sectionTitle = document.getElementById("sectionTitle");
-    
-        menuItems.forEach(item => {
-            item.addEventListener("click", () => {
-                // Remove active from all
-                menuItems.forEach(i => i.classList.remove("active"));
-                item.classList.add("active");
-    
-                // Switch section
-                const sectionId = item.getAttribute("data-section");
-                sections.forEach(section => {
-                    section.classList.remove("active");
-                    if (section.id === sectionId) {
-                        section.classList.add("active");
-                        sectionTitle.textContent = item.innerText;
-                    }
-                });
-            });
-        });
-    </script>
-    
 </body>
 </html>
