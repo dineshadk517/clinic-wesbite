@@ -21,7 +21,7 @@
         .container {
             padding: 20px;
         }
-        .login-section {
+        .login-section, .reset-section {
             background-color: white;
             padding: 20px;
             margin: 20px auto;
@@ -29,18 +29,20 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .login-section h2 {
+        .login-section h2, .reset-section h2 {
             margin-bottom: 20px;
         }
         .login-section input,
-        .login-section select {
+        .login-section select,
+        .reset-section input {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        .login-section button {
+        .login-section button,
+        .reset-section button {
             width: 100%;
             padding: 10px;
             background-color: #007BFF;
@@ -49,7 +51,8 @@
             border-radius: 4px;
             cursor: pointer;
         }
-        .login-section button:hover {
+        .login-section button:hover,
+        .reset-section button:hover {
             background-color: #0056b3;
         }
         .forgot-password {
@@ -73,6 +76,31 @@
             bottom: 0;
             width: 100%;
         }
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        #backToLogin {
+            text-align: center;
+            margin-top: 15px;
+        }
+        #backToLogin a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        #backToLogin a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -82,7 +110,8 @@
     </header>
 
     <div class="container">
-        <div class="login-section">
+        <!-- Login Section (Default View) -->
+        <div class="login-section" id="loginSection">
             <h2>Login</h2>
             <form id="loginForm">
                 <label for="role">Select Role:</label>
@@ -98,10 +127,33 @@
                 <button type="submit">Login</button>
 
                 <div class="forgot-password">
-                    <a href="reset-password.html">Forgot Password?</a>
+                    <a href="#" id="forgotPasswordLink">Forgot Password?</a>
                 </div>
             </form>
-            <p id="errorMessage" style="color: red; display: none;">Invalid username or password.</p>
+            <div id="loginMessage" class="message"></div>
+        </div>
+
+        <!-- Password Reset Section (Hidden Initially) -->
+        <div class="reset-section" id="resetSection" style="display: none;">
+            <h2>Reset Password</h2>
+            <form id="resetForm">
+                <label for="resetRole">Select Role:</label>
+                <select id="resetRole" required>
+                    <option value="">-- Select Role --</option>
+                    <option value="nurse">Nurse</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="user">User (Patient)</option>
+                </select>
+
+                <input type="text" id="resetUsername" placeholder="Username" required>
+                <input type="password" id="newPassword" placeholder="New Password" required>
+                <input type="password" id="confirmPassword" placeholder="Confirm New Password" required>
+                <button type="submit">Reset Password</button>
+            </form>
+            <div id="resetMessage" class="message"></div>
+            <div id="backToLogin">
+                <a href="#" id="backToLoginLink">← Back to Login</a>
+            </div>
         </div>
     </div>
 
@@ -111,41 +163,120 @@
 
     <script>
         // Hardcoded credentials for demonstration
-        const credentials = {
+        let credentials = {
             nurse: { username: "nurse", password: "1234" },
             doctor: { username: "doctor", password: "1234" },
             user: { username: "dineshadk", password: "1234" }
         };
 
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form submission
+        // DOM Elements
+        const loginSection = document.getElementById('loginSection');
+        const resetSection = document.getElementById('resetSection');
+        const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+        const backToLoginLink = document.getElementById('backToLoginLink');
+        const loginForm = document.getElementById('loginForm');
+        const resetForm = document.getElementById('resetForm');
+        const loginMessage = document.getElementById('loginMessage');
+        const resetMessage = document.getElementById('resetMessage');
+
+        // Toggle between login and reset views
+        forgotPasswordLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginSection.style.display = 'none';
+            resetSection.style.display = 'block';
+        });
+
+        backToLoginLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            resetSection.style.display = 'none';
+            loginSection.style.display = 'block';
+        });
+
+        // Login Form Submission
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            loginMessage.style.display = 'none';
 
             const role = document.getElementById('role').value;
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
             if (!role) {
-                alert("Please select a role.");
+                showMessage(loginMessage, 'Please select a role.', 'error');
                 return;
             }
 
             if (username === credentials[role]?.username && password === credentials[role]?.password) {
-                alert(`Login successful as ${role}!`);
-                switch (role) {
-                    case "nurse":
-                        window.location.href = "nurse-dashboard.html";
-                        break;
-                    case "doctor":
-                        window.location.href = "doctor-dashboard.html";
-                        break;
-                    case "user":
-                        window.location.href = "user-dashboard.html";
-                        break;
-                }
+                showMessage(loginMessage, `Login successful as ${role}! Redirecting...`, 'success');
+                setTimeout(() => {
+                    switch (role) {
+                        case "nurse":
+                            window.location.href = "nurse-dashboard.html";
+                            break;
+                        case "doctor":
+                            window.location.href = "doctor-dashboard.html";
+                            break;
+                        case "user":
+                            window.location.href = "user-dashboard.html";
+                            break;
+                    }
+                }, 1000);
             } else {
-                document.getElementById('errorMessage').style.display = 'block';
+                showMessage(loginMessage, 'Invalid username or password.', 'error');
             }
         });
+
+        // Reset Password Form Submission
+        resetForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            resetMessage.style.display = 'none';
+
+            const role = document.getElementById('resetRole').value;
+            const username = document.getElementById('resetUsername').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!role) {
+                showMessage(resetMessage, 'Please select a role.', 'error');
+                return;
+            }
+
+            if (username !== credentials[role]?.username) {
+                showMessage(resetMessage, 'Username not found for selected role.', 'error');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                showMessage(resetMessage, 'Passwords do not match.', 'error');
+                return;
+            }
+
+            if (newPassword.length < 4) {
+                showMessage(resetMessage, 'Password must be at least 4 characters.', 'error');
+                return;
+            }
+
+            // Update the password
+            credentials[role].password = newPassword;
+            showMessage(resetMessage, 'Password updated successfully! You can now login with your new password.', 'success');
+            
+            // Clear the form
+            resetForm.reset();
+            
+            // Optional: Auto switch back to login after 3 seconds
+            setTimeout(() => {
+                resetSection.style.display = 'none';
+                loginSection.style.display = 'block';
+                loginMessage.style.display = 'none';
+            }, 3000);
+        });
+
+        // Helper function to show messages
+        function showMessage(element, text, type) {
+            element.textContent = text;
+            element.className = 'message ' + type;
+            element.style.display = 'block';
+        }
     </script>
 </body>
 </html>
