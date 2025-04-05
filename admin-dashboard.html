@@ -3,125 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Database Recovery & Backup</title>
+    <title>Admin Dashboard - Backup & Recovery Testing</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
         }
-        .dashboard-container {
-            max-width: 1200px;
-            margin: 30px auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .section-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        .action-button {
-            background-color: #007BFF;
+        .header {
+            background-color: #2c3e50;
             color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        button {
             padding: 10px 20px;
+            font-size: 16px;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
+            background-color: #3498db;
+            color: white;
             cursor: pointer;
-            margin: 10px;
+            transition: all 0.3s;
         }
-        .action-button:hover {
-            background-color: #0056b3;
+        button:hover {
+            background-color: #2980b9;
         }
-        .status-container {
+        .backup-status {
             margin-top: 20px;
-            font-size: 18px;
+            font-size: 16px;
+            color: #2c3e50;
         }
-        .status {
-            color: green;
+        .backup-frequency, .backup-efficiency {
+            margin-top: 10px;
+            font-size: 16px;
         }
-        .error {
-            color: red;
+        .backup-frequency span, .backup-efficiency span {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <div class="dashboard-container">
-        <h2 class="section-title">Database Recovery & Backup Operations</h2>
+    <div class="header">
+        <h1>Admin Dashboard</h1>
+        <p>Manage Clinic System Backup & Recovery Testing</p>
+    </div>
 
-        <!-- Simulate Database Failure Section -->
-        <div>
-            <h3>Simulate Database Failure</h3>
-            <button class="action-button" id="simulateFailureBtn">Simulate Database Failure</button>
-            <div id="failureStatus" class="status-container"></div>
+    <div class="container">
+        <div class="card">
+            <h2>Test Backup Operations</h2>
+            
+            <!-- Simulate Backup Operation Button -->
+            <button onclick="simulateBackup()">Simulate Backup</button>
+
+            <!-- Backup Status Section -->
+            <div class="backup-status">
+                <p id="backupStatus">Backup status will be shown here.</p>
+            </div>
+
+            <!-- Backup Frequency and Efficiency Data -->
+            <div class="backup-frequency">
+                <label>Backup Frequency:</label>
+                <p><span id="backupFrequency">Not tested yet</span></p>
+            </div>
+
+            <div class="backup-efficiency">
+                <label>Backup Efficiency:</label>
+                <p><span id="backupEfficiency">Not tested yet</span></p>
+            </div>
         </div>
-
-        <hr>
-
-        <!-- Recovery Process Section -->
-        <div>
-            <h3>Database Recovery Process</h3>
-            <button class="action-button" id="recoveryProcessBtn" disabled>Trigger Recovery</button>
-            <div id="recoveryStatus" class="status-container"></div>
-        </div>
-
-        <hr>
-
-        <!-- Backup Operations Section -->
-        <div>
-            <h3>Backup Operations</h3>
-            <button class="action-button" id="backupNowBtn">Backup Now</button>
-            <div id="backupStatus" class="status-container"></div>
-        </div>
-
-        <hr>
-
-        <!-- Backup Frequency & Efficiency Test -->
-        <div>
-            <h3>Test Backup Frequency & Efficiency</h3>
-            <button class="action-button" id="testBackupBtn">Run Backup Frequency Test</button>
-            <div id="backupTestResult" class="status-container"></div>
-        </div>
-
     </div>
 
     <script>
-        // Simulate database failure
-        document.getElementById('simulateFailureBtn').addEventListener('click', function() {
-            document.getElementById('failureStatus').innerHTML = "Database failure simulated. Recovery required!";
-            document.getElementById('recoveryProcessBtn').disabled = false; // Enable recovery process
-            document.getElementById('recoveryStatus').innerHTML = "";
-            document.getElementById('backupStatus').innerHTML = "No backup operations possible until recovery.";
-        });
+        // Function to simulate backup operation
+        function simulateBackup() {
+            // Displaying backup status
+            document.getElementById('backupStatus').textContent = 'Backup in progress...';
 
-        // Trigger database recovery
-        document.getElementById('recoveryProcessBtn').addEventListener('click', function() {
-            document.getElementById('recoveryStatus').innerHTML = "Database recovery in progress...";
+            // Simulating a backup operation
             setTimeout(function() {
-                document.getElementById('recoveryStatus').innerHTML = "Database recovered successfully!";
-                document.getElementById('backupStatus').innerHTML = "Backup operations now available.";
-                document.getElementById('backupNowBtn').disabled = false; // Enable backup operation
-            }, 3000); // Simulate recovery time
-        });
+                document.getElementById('backupStatus').textContent = 'Backup completed successfully!';
 
-        // Trigger a manual backup operation
-        document.getElementById('backupNowBtn').addEventListener('click', function() {
-            document.getElementById('backupStatus').innerHTML = "Backup in progress...";
-            setTimeout(function() {
-                document.getElementById('backupStatus').innerHTML = "Backup completed successfully!";
-            }, 2000); // Simulate backup time
-        });
-
-        // Test backup frequency & efficiency
-        document.getElementById('testBackupBtn').addEventListener('click', function() {
-            document.getElementById('backupTestResult').innerHTML = "Running backup frequency & efficiency test...";
-            setTimeout(function() {
-                document.getElementById('backupTestResult').innerHTML = "Backup frequency test completed. Efficiency: 95% success rate.";
-            }, 4000); // Simulate test time
-        });
+                // Simulating backup frequency and efficiency
+                document.getElementById('backupFrequency').textContent = 'Once every 24 hours';  // Example frequency
+                document.getElementById('backupEfficiency').textContent = 'Completed in 30 seconds';  // Example efficiency
+            }, 3000);  // Simulating a 3-second backup time
+        }
     </script>
 
 </body>
