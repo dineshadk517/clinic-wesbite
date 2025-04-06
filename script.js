@@ -4,6 +4,7 @@
         nurse: { username: "nurse1", password: "1234" },
         doctor: { username: "doctor1", password: "1234" },
         user: { username: "user1", password: "1234" }
+        admin: { username: "admin", password: "1234" }
     };
 
     document.getElementById('loginForm').addEventListener('submit', function(event) {
@@ -33,6 +34,9 @@
                     break;
                 case "user":
                     window.location.href = "user-dashboard.html";
+                    break;
+                    case "admin":
+                    window.location.href = "admin-dashboard.html";
                     break;
             }
         } else {
