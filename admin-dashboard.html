@@ -1,120 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Backup & Recovery Testing</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f7fa;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            font-weight: bold;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 4px;
-            background-color: #3498db;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        button:hover {
-            background-color: #2980b9;
-        }
-        .backup-status {
-            margin-top: 20px;
-            font-size: 16px;
-            color: #2c3e50;
-        }
-        .backup-frequency, .backup-efficiency {
-            margin-top: 10px;
-            font-size: 16px;
-        }
-        .backup-frequency span, .backup-efficiency span {
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - Backup & Sync Testing</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      margin-bottom: 30px;
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    label {
+      font-weight: bold;
+    }
+    button, .button-link {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    button:hover, .button-link:hover {
+      background-color: #2980b9;
+    }
+    .backup-status, .backup-frequency, .backup-efficiency {
+      margin-top: 15px;
+      font-size: 16px;
+    }
+    .backup-frequency span, .backup-efficiency span {
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Admin Dashboard</h1>
-        <p>Manage Clinic System Backup & Recovery Testing</p>
+  <div class="header">
+    <h1>Admin Dashboard</h1>
+    <p>Manage Clinic System Backup, Recovery, & Data Sync Testing</p>
+  </div>
+
+  <div class="container">
+
+    <!-- Backup Testing Card -->
+    <div class="card">
+      <h2>Test Backup Operations</h2>
+      <button onclick="simulateBackup()">Simulate Backup</button>
+
+      <div class="backup-status">
+        <p id="backupStatus">Backup status will be shown here.</p>
+      </div>
+
+      <div class="backup-frequency">
+        <label>Backup Frequency:</label>
+        <p><span id="backupFrequency">Not tested yet</span></p>
+      </div>
+
+      <div class="backup-efficiency">
+        <label>Backup Efficiency:</label>
+        <p><span id="backupEfficiency">Not tested yet</span></p>
+      </div>
     </div>
 
-    <div class="container">
-        <div class="card">
-            <h2>Test Backup Operations</h2>
-            
-            <!-- Simulate Backup Operation Button -->
-            <button onclick="simulateBackup()">Simulate Backup</button>
-
-            <!-- Backup Status Section -->
-            <div class="backup-status">
-                <p id="backupStatus">Backup status will be shown here.</p>
-            </div>
-
-            <!-- Backup Frequency and Efficiency Data -->
-            <div class="backup-frequency">
-                <label>Backup Frequency:</label>
-                <p><span id="backupFrequency">Not tested yet</span></p>
-            </div>
-
-            <div class="backup-efficiency">
-                <label>Backup Efficiency:</label>
-                <p><span id="backupEfficiency">Not tested yet</span></p>
-            </div>
-        </div>
+    <!-- Real-Time Data Sync Test Card -->
+    <div class="card">
+      <h2>Real-Time Data Synchronization Test</h2>
+      <p>Ensure that updates made to the primary database are accurately reflected in the secondary database. This test checks for latency and consistency.</p>
+      <a href="sync_test.php" target="_blank" class="button-link">Run Synchronization Test</a>
     </div>
 
-    <script>
-        // Function to simulate backup operation
-        function simulateBackup() {
-            // Displaying backup status
-            document.getElementById('backupStatus').textContent = 'Backup in progress...';
+  </div>
 
-            // Simulating a backup operation
-            setTimeout(function() {
-                document.getElementById('backupStatus').textContent = 'Backup completed successfully!';
+  <script>
+    function simulateBackup() {
+      document.getElementById('backupStatus').textContent = 'Backup in progress...';
 
-                // Simulating backup frequency and efficiency
-                document.getElementById('backupFrequency').textContent = 'Once every 24 hours';  // Example frequency
-                document.getElementById('backupEfficiency').textContent = 'Completed in 30 seconds';  // Example efficiency
-            }, 3000);  // Simulating a 3-second backup time
-        }
-    </script>
+      setTimeout(function() {
+        document.getElementById('backupStatus').textContent = 'Backup completed successfully!';
+        document.getElementById('backupFrequency').textContent = 'Once every 24 hours';
+        document.getElementById('backupEfficiency').textContent = 'Completed in 30 seconds';
+      }, 3000);
+    }
+  </script>
 
 </body>
 </html>
