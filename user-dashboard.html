@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +9,10 @@
         /* Additional styles for the user dashboard */
         .dashboard-section {
             margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         table {
             width: 100%;
@@ -17,8 +20,8 @@
             margin-top: 20px;
         }
         table th, table td {
-            padding: 10px;
-            border: 1px solid #ccc;
+            padding: 12px;
+            border: 1px solid #ddd;
             text-align: left;
         }
         table th {
@@ -30,6 +33,10 @@
         }
         .action-buttons button {
             margin-right: 5px;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
         .form-group {
             margin-bottom: 15px;
@@ -41,28 +48,70 @@
         }
         .form-group input, .form-group select {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
+            padding: 10px;
+            border: 1px solid #ddd;
             border-radius: 4px;
+            box-sizing: border-box;
         }
         .form-group button {
-            padding: 8px 16px;
+            padding: 10px 20px;
             background-color: #007BFF;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
         }
         .form-group button:hover {
             background-color: #0056b3;
+        }
+        .receipt {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            display: none;
+        }
+        .receipt h3 {
+            color: #007BFF;
+            margin-top: 0;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        header h1 {
+            margin: 0;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        .print-btn {
+            background-color: #28a745;
+            margin-top: 10px;
+        }
+        .print-btn:hover {
+            background-color: #218838;
+        }
+        .paid-btn {
+            background-color: #6c757d;
+            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>Welcome, Deependra!</h1>
-        <p>you can book appointments, pay bills, check results, and update your details.</p>
-        <a href="logout.php" style="color: white; text-decoration: none;">Logout</a>
+        <p>You can book appointments, pay bills, check results, and update your details.</p>
+        <a href="logout.php" style="color: white; text-decoration: none; float: right;">Logout</a>
     </header>
 
     <div class="container">
@@ -91,7 +140,15 @@
                     <button type="submit">Book Appointment</button>
                 </div>
             </form>
-            <p id="appointmentConfirmation" style="color: green; display: none;">Appointment booked successfully!</p>
+            <div id="appointmentReceipt" class="receipt">
+                <h3>Appointment Confirmation</h3>
+                <p><strong>Patient Name:</strong> Deependra</p>
+                <p><strong>Doctor:</strong> <span id="appointmentDoctor"></span></p>
+                <p><strong>Date:</strong> <span id="appointmentDateDisplay"></span></p>
+                <p><strong>Time:</strong> <span id="appointmentTimeDisplay"></span></p>
+                <p><strong>Appointment ID:</strong> APP-<span id="appointmentId"></span></p>
+                <button class="print-btn" onclick="printReceipt('appointmentReceipt')">Print Appointment</button>
+            </div>
         </div>
 
         <!-- Pay Due Bills Section -->
@@ -101,6 +158,7 @@
                 <thead>
                     <tr>
                         <th>Bill ID</th>
+                        <th>Description</th>
                         <th>Amount</th>
                         <th>Status</th>
                         <th>Actions</th>
@@ -109,22 +167,34 @@
                 <tbody>
                     <tr>
                         <td>101</td>
+                        <td>Consultation Fee</td>
                         <td>$150</td>
                         <td>Unpaid</td>
                         <td class="action-buttons">
-                            <button onclick="payBill(101)">Pay Now</button>
+                            <button onclick="payBill(101, 'Consultation Fee', 150)">Pay Now</button>
                         </td>
                     </tr>
                     <tr>
                         <td>102</td>
+                        <td>Lab Tests</td>
                         <td>$200</td>
                         <td>Paid</td>
                         <td class="action-buttons">
-                            <button disabled>Paid</button>
+                            <button class="paid-btn" disabled>Paid</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <div id="billReceipt" class="receipt">
+                <h3>Bill Payment Receipt</h3>
+                <p><strong>Patient Name:</strong> Deependra</p>
+                <p><strong>Bill ID:</strong> <span id="billId"></span></p>
+                <p><strong>Description:</strong> <span id="billDescription"></span></p>
+                <p><strong>Amount:</strong> $<span id="billAmount"></span></p>
+                <p><strong>Payment Date:</strong> <span id="paymentDate"></span></p>
+                <p><strong>Transaction ID:</strong> TXN-<span id="transactionId"></span></p>
+                <button class="print-btn" onclick="printReceipt('billReceipt')">Print Receipt</button>
+            </div>
         </div>
 
         <!-- Check Results Section -->
@@ -137,6 +207,7 @@
                         <th>Date</th>
                         <th>Result</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -145,15 +216,26 @@
                         <td>2024-10-15</td>
                         <td>Normal</td>
                         <td>Completed</td>
+                        <td><button onclick="showTestResult('Blood Test', '2024-10-15', 'Normal')">View</button></td>
                     </tr>
                     <tr>
                         <td>X-Ray</td>
                         <td>2024-10-16</td>
                         <td>Pending</td>
                         <td>Pending</td>
+                        <td><button disabled>Pending</button></td>
                     </tr>
                 </tbody>
             </table>
+            <div id="testResultReceipt" class="receipt">
+                <h3>Test Result</h3>
+                <p><strong>Patient Name:</strong> Deependra</p>
+                <p><strong>Test Name:</strong> <span id="testName"></span></p>
+                <p><strong>Date:</strong> <span id="testDate"></span></p>
+                <p><strong>Result:</strong> <span id="testResult"></span></p>
+                <p><strong>Result ID:</strong> RES-<span id="resultId"></span></p>
+                <button class="print-btn" onclick="printReceipt('testResultReceipt')">Print Result</button>
+            </div>
         </div>
 
         <!-- Update Details Section -->
@@ -176,7 +258,11 @@
                     <button type="submit">Update Details</button>
                 </div>
             </form>
-            <p id="updateConfirmation" style="color: green; display: none;">Details updated successfully!</p>
+            <div id="updateConfirmation" class="receipt" style="display: none;">
+                <h3>Profile Updated Successfully!</h3>
+                <p>Your details have been updated.</p>
+                <p><strong>Updated on:</strong> <span id="updateDate"></span></p>
+            </div>
         </div>
     </div>
 
@@ -185,6 +271,17 @@
     </footer>
 
     <script>
+        // Function to generate random IDs
+        function generateId(prefix) {
+            return prefix + Math.floor(Math.random() * 10000);
+        }
+
+        // Function to get current date
+        function getCurrentDate() {
+            const now = new Date();
+            return now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+        }
+
         // Function to book an appointment
         function bookAppointment(event) {
             event.preventDefault();
@@ -193,7 +290,15 @@
             const time = document.getElementById('appointmentTime').value;
 
             if (doctor && date && time) {
-                document.getElementById('appointmentConfirmation').style.display = 'block';
+                document.getElementById('appointmentDoctor').textContent = doctor;
+                document.getElementById('appointmentDateDisplay').textContent = date;
+                document.getElementById('appointmentTimeDisplay').textContent = time;
+                document.getElementById('appointmentId').textContent = Math.floor(Math.random() * 10000);
+                document.getElementById('appointmentReceipt').style.display = 'block';
+                
+                // Scroll to receipt
+                document.getElementById('appointmentReceipt').scrollIntoView({ behavior: 'smooth' });
+                
                 alert(`Appointment booked with ${doctor} on ${date} at ${time}.`);
             } else {
                 alert('Please fill in all fields.');
@@ -201,15 +306,42 @@
         }
 
         // Function to pay a bill
-        function payBill(billId) {
-            const confirmation = confirm(`Do you want to pay the bill with ID ${billId}?`);
+        function payBill(billId, description, amount) {
+            const confirmation = confirm(`Do you want to pay $${amount} for ${description}?`);
             if (confirmation) {
-                alert(`Payment for bill ${billId} has been processed.`);
-                // Update the bill status (for demonstration purposes)
-                const row = event.target.closest('tr');
-                row.querySelector('td:nth-child(3)').innerText = 'Paid';
-                row.querySelector('button').disabled = true;
+                document.getElementById('billId').textContent = billId;
+                document.getElementById('billDescription').textContent = description;
+                document.getElementById('billAmount').textContent = amount;
+                document.getElementById('paymentDate').textContent = getCurrentDate();
+                document.getElementById('transactionId').textContent = Math.floor(Math.random() * 10000);
+                document.getElementById('billReceipt').style.display = 'block';
+                
+                // Update table status
+                const rows = document.querySelectorAll('table tbody tr');
+                rows.forEach(row => {
+                    if (row.cells[0].textContent == billId) {
+                        row.cells[3].textContent = 'Paid';
+                        row.cells[4].innerHTML = '<button class="paid-btn" disabled>Paid</button>';
+                    }
+                });
+                
+                // Scroll to receipt
+                document.getElementById('billReceipt').scrollIntoView({ behavior: 'smooth' });
+                
+                alert(`Payment of $${amount} for ${description} has been processed.`);
             }
+        }
+
+        // Function to show test result
+        function showTestResult(testName, testDate, testResult) {
+            document.getElementById('testName').textContent = testName;
+            document.getElementById('testDate').textContent = testDate;
+            document.getElementById('testResult').textContent = testResult;
+            document.getElementById('resultId').textContent = Math.floor(Math.random() * 10000);
+            document.getElementById('testResultReceipt').style.display = 'block';
+            
+            // Scroll to receipt
+            document.getElementById('testResultReceipt').scrollIntoView({ behavior: 'smooth' });
         }
 
         // Function to update user details
@@ -220,13 +352,34 @@
             const phone = document.getElementById('phone').value;
 
             if (name && email && phone) {
+                document.getElementById('updateDate').textContent = getCurrentDate();
                 document.getElementById('updateConfirmation').style.display = 'block';
-                alert(`Details updated:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}`);
+                
+                // Scroll to confirmation
+                document.getElementById('updateConfirmation').scrollIntoView({ behavior: 'smooth' });
+                
+                alert('Your details have been updated successfully!');
             } else {
                 alert('Please fill in all fields.');
             }
         }
+
+        // Function to print receipt
+        function printReceipt(receiptId) {
+            const receipt = document.getElementById(receiptId);
+            const printWindow = window.open('', '', 'width=600,height=600');
+            printWindow.document.write('<html><head><title>Print Receipt</title>');
+            printWindow.document.write('<style>body { font-family: Arial; padding: 20px; } h3 { color: #007BFF; } p { margin: 10px 0; }</style>');
+            printWindow.document.write('</head><body>');
+            printWindow.document.write(receipt.innerHTML.replace(/<button.*<\/button>/g, ''));
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+            }, 500);
+        }
     </script>
 </body>
 </html>
-
