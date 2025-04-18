@@ -3,140 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Secure Patient Dashboard</title>
     <style>
-        /* Additional styles for the user dashboard */
-        .dashboard-section {
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
         }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
+            color: white;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Dashboard Sections */
+        .dashboard-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #007BFF;
+        }
+        
+        .dashboard-section h2 {
+            color: #007BFF;
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #007BFF;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+        
+        button, .btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover, .btn:hover {
+            background-color: #0056b3;
+        }
+        
+        /* Table Styles */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            font-size: 15px;
         }
-        table th, table td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
+        
         table th {
             background-color: #007BFF;
             color: white;
+            padding: 12px;
+            text-align: left;
         }
+        
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
         table tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        .action-buttons button {
-            margin-right: 5px;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        
+        table tr:hover {
+            background-color: #f1f7ff;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .form-group button {
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .form-group button:hover {
-            background-color: #0056b3;
-        }
+        
+        /* Receipt Styles */
         .receipt {
-            margin-top: 20px;
-            padding: 20px;
-            border: 1px solid #ddd;
             background-color: #f8f9fa;
             border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
             display: none;
         }
+        
         .receipt h3 {
             color: #007BFF;
             margin-top: 0;
         }
-        header {
-            background-color: #007BFF;
-            color: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-        }
-        header h1 {
-            margin: 0;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 30px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-        }
-        .print-btn {
-            background-color: #28a745;
-            margin-top: 10px;
-        }
-        .print-btn:hover {
-            background-color: #218838;
-        }
-        .paid-btn {
-            background-color: #6c757d;
-            cursor: not-allowed;
-        }
+        
+        /* Security Badge */
         .security-badge {
-            display: inline-block;
-            padding: 5px 10px;
             background-color: #28a745;
             color: white;
+            padding: 5px 10px;
             border-radius: 4px;
-            font-size: 12px;
+            font-size: 14px;
             margin-left: 10px;
+            display: inline-flex;
+            align-items: center;
         }
+        
+        /* MFA Section */
         .mfa-section {
             background-color: #f8f9fa;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
             margin-top: 20px;
             border: 1px solid #ddd;
         }
+        
         .mfa-toggle {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
+        
+        /* Toggle Switch */
         .switch {
             position: relative;
             display: inline-block;
             width: 60px;
             height: 34px;
         }
+        
         .switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
+        
         .slider {
             position: absolute;
             cursor: pointer;
@@ -148,6 +197,7 @@
             transition: .4s;
             border-radius: 34px;
         }
+        
         .slider:before {
             position: absolute;
             content: "";
@@ -159,59 +209,104 @@
             transition: .4s;
             border-radius: 50%;
         }
+        
         input:checked + .slider {
             background-color: #28a745;
         }
+        
         input:checked + .slider:before {
             transform: translateX(26px);
         }
-        .encryption-status {
-            padding: 10px;
-            background-color: #e9f7ef;
-            border-radius: 4px;
-            margin-top: 10px;
-        }
+        
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1;
+            z-index: 1000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
+            background-color: rgba(0, 0, 0, 0.5);
         }
+        
         .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 400px;
-            border-radius: 8px;
+            background-color: white;
+            margin: 10% auto;
+            padding: 25px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
+        
         .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
             font-weight: bold;
+            color: #aaa;
             cursor: pointer;
         }
-        .close:hover {
-            color: black;
-        }
+        
+        /* QR Code Container */
         #qrcode {
             width: 200px;
             height: 200px;
-            margin: 10px 0;
+            margin: 15px auto;
             background-color: white;
             padding: 10px;
             border: 1px solid #ddd;
         }
-        #qrcode img {
-            width: 100%;
-            height: 100%;
+        
+        /* Email Confirmation */
+        .email-confirmation {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 20px;
+            }
+            
+            .dashboard-section {
+                padding: 20px;
+            }
+            
+            table {
+                font-size: 14px;
+            }
+            
+            table th, table td {
+                padding: 8px;
+            }
         }
     </style>
     <!-- QR Code library -->
@@ -221,7 +316,7 @@
     <header>
         <h1>Welcome, Deependra! <span class="security-badge">Secure Connection 🔒</span></h1>
         <p>You can book appointments, pay bills, check results, and update your details.</p>
-        <a href="logout.php" style="color: white; text-decoration: none; float: right;">Logout</a>
+        <a href="logout.php" style="color: white; text-decoration: none; float: right; font-weight: 600;">Logout</a>
     </header>
 
     <div class="container">
@@ -246,7 +341,7 @@
                     <p>Or enter this secret key manually: <strong>JBSWY3DPEHPK3PXP</strong></p>
                     <div class="form-group">
                         <label for="mfaCode">Enter 6-digit code from your app:</label>
-                        <input type="text" id="mfaCode" placeholder="123456" maxlength="6">
+                        <input type="text" id="mfaCode" placeholder="123456" maxlength="6" pattern="\d{6}" required>
                         <button onclick="verifyMFA()">Verify</button>
                     </div>
                 </div>
@@ -279,25 +374,33 @@
                 </div>
                 <div class="form-group">
                     <label for="appointmentDate">Appointment Date:</label>
-                    <input type="date" id="appointmentDate" required>
+                    <input type="date" id="appointmentDate" required min="<?php echo date('Y-m-d'); ?>">
                 </div>
                 <div class="form-group">
                     <label for="appointmentTime">Appointment Time:</label>
-                    <input type="time" id="appointmentTime" required>
+                    <input type="time" id="appointmentTime" required min="09:00" max="17:00">
+                </div>
+                <div class="form-group">
+                    <label for="appointmentNotes">Notes (Optional):</label>
+                    <textarea id="appointmentNotes" rows="3" placeholder="Any special requirements..."></textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit">Book Appointment</button>
                 </div>
             </form>
+            <div id="appointmentEmailConfirmation" class="email-confirmation">
+                A confirmation email has been sent to dinesh008574@gmail.com
+            </div>
             <div id="appointmentReceipt" class="receipt">
                 <h3>Appointment Confirmation</h3>
                 <p><strong>Patient Name:</strong> Deependra</p>
                 <p><strong>Doctor:</strong> <span id="appointmentDoctor"></span></p>
                 <p><strong>Date:</strong> <span id="appointmentDateDisplay"></span></p>
                 <p><strong>Time:</strong> <span id="appointmentTimeDisplay"></span></p>
+                <p><strong>Notes:</strong> <span id="appointmentNotesDisplay"></span></p>
                 <p><strong>Appointment ID:</strong> APP-<span id="appointmentId"></span></p>
                 <p><strong>Security:</strong> <span style="color: #28a745;">This appointment is encrypted and secure</span></p>
-                <button class="print-btn" onclick="printReceipt('appointmentReceipt')">Print Appointment</button>
+                <button class="btn print-btn" onclick="printReceipt('appointmentReceipt')">Print Appointment</button>
             </div>
         </div>
 
@@ -320,7 +423,7 @@
                         <td>Consultation Fee</td>
                         <td>$150</td>
                         <td>Unpaid</td>
-                        <td class="action-buttons">
+                        <td>
                             <button onclick="payBill(101, 'Consultation Fee', 150)">Pay Now</button>
                         </td>
                     </tr>
@@ -329,12 +432,15 @@
                         <td>Lab Tests</td>
                         <td>$200</td>
                         <td>Paid</td>
-                        <td class="action-buttons">
+                        <td>
                             <button class="paid-btn" disabled>Paid</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <div id="paymentEmailConfirmation" class="email-confirmation">
+                A payment confirmation email has been sent to dinesh008574@gmail.com
+            </div>
             <div id="billReceipt" class="receipt">
                 <h3>Bill Payment Receipt</h3>
                 <p><strong>Patient Name:</strong> Deependra</p>
@@ -344,7 +450,7 @@
                 <p><strong>Payment Date:</strong> <span id="paymentDate"></span></p>
                 <p><strong>Transaction ID:</strong> TXN-<span id="transactionId"></span></p>
                 <p><strong>Security:</strong> <span style="color: #28a745;">Payment processed with TLS 1.3 encryption</span></p>
-                <button class="print-btn" onclick="printReceipt('billReceipt')">Print Receipt</button>
+                <button class="btn print-btn" onclick="printReceipt('billReceipt')">Print Receipt</button>
             </div>
         </div>
 
@@ -386,7 +492,7 @@
                 <p><strong>Result:</strong> <span id="testResult"></span></p>
                 <p><strong>Result ID:</strong> RES-<span id="resultId"></span></p>
                 <p><strong>Security:</strong> <span style="color: #28a745;">This medical record is end-to-end encrypted</span></p>
-                <button class="print-btn" onclick="printReceipt('testResultReceipt')">Print Result</button>
+                <button class="btn print-btn" onclick="printReceipt('testResultReceipt')">Print Result</button>
             </div>
         </div>
 
@@ -404,12 +510,19 @@
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone:</label>
-                    <input type="tel" id="phone" value="099876456" required>
+                    <input type="tel" id="phone" value="099876456" required pattern="[0-9]{10}">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <textarea id="address" rows="3">123 Main Street, City</textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit">Update Details</button>
                 </div>
             </form>
+            <div id="profileEmailConfirmation" class="email-confirmation">
+                A profile update confirmation has been sent to dinesh008574@gmail.com
+            </div>
             <div id="updateConfirmation" class="receipt" style="display: none;">
                 <h3>Profile Updated Successfully!</h3>
                 <p>Your details have been updated.</p>
@@ -426,7 +539,7 @@
             <h2>Verify Your Identity</h2>
             <p>Please enter the 6-digit code from your authenticator app:</p>
             <div class="form-group">
-                <input type="text" id="modalMfaCode" placeholder="123456" maxlength="6">
+                <input type="text" id="modalMfaCode" placeholder="123456" maxlength="6" pattern="\d{6}" required>
                 <button onclick="verifyModalMFA()">Verify</button>
             </div>
             <p id="mfaError" style="color: red; display: none;">Invalid code. Please try again.</p>
@@ -520,31 +633,111 @@
             }
         }
 
+        // Function to send email confirmation
+        function sendEmailConfirmation(type, details) {
+            let subject, message;
+            const recipientEmail = 'dinesh008574@gmail.com';
+            
+            switch(type) {
+                case 'appointment':
+                    subject = `Appointment Confirmation - ${details.doctor}`;
+                    message = `
+                        <h2>Appointment Confirmation</h2>
+                        <p><strong>Patient:</strong> Deependra</p>
+                        <p><strong>Doctor:</strong> ${details.doctor}</p>
+                        <p><strong>Date:</strong> ${details.date}</p>
+                        <p><strong>Time:</strong> ${details.time}</p>
+                        <p><strong>Notes:</strong> ${details.notes || 'None'}</p>
+                        <p><strong>Appointment ID:</strong> APP-${details.id}</p>
+                        <p>Thank you for booking with us!</p>
+                    `;
+                    break;
+                    
+                case 'payment':
+                    subject = `Payment Confirmation - ${details.description}`;
+                    message = `
+                        <h2>Payment Receipt</h2>
+                        <p><strong>Patient:</strong> Deependra</p>
+                        <p><strong>Bill ID:</strong> ${details.billId}</p>
+                        <p><strong>Description:</strong> ${details.description}</p>
+                        <p><strong>Amount:</strong> $${details.amount}</p>
+                        <p><strong>Transaction ID:</strong> TXN-${details.transactionId}</p>
+                        <p>Thank you for your payment!</p>
+                    `;
+                    break;
+                    
+                case 'profile':
+                    subject = `Profile Update Confirmation`;
+                    message = `
+                        <h2>Profile Updated Successfully</h2>
+                        <p>Your account details were updated on ${new Date().toLocaleString()}</p>
+                        <p>If you didn't make these changes, please contact us immediately.</p>
+                    `;
+                    break;
+            }
+
+            // In a real implementation, this would send to your PHP email handler
+            console.log(`Email sent to ${recipientEmail} with subject: ${subject}`);
+            
+            // Show confirmation message
+            showEmailConfirmation(type);
+        }
+
+        // Function to show email confirmation message
+        function showEmailConfirmation(type) {
+            let confirmationDiv;
+            switch(type) {
+                case 'appointment':
+                    confirmationDiv = document.getElementById('appointmentEmailConfirmation');
+                    break;
+                case 'payment':
+                    confirmationDiv = document.getElementById('paymentEmailConfirmation');
+                    break;
+                case 'profile':
+                    confirmationDiv = document.getElementById('profileEmailConfirmation');
+                    break;
+            }
+            
+            if(confirmationDiv) {
+                confirmationDiv.style.display = 'block';
+                setTimeout(() => {
+                    confirmationDiv.style.display = 'none';
+                }, 5000);
+            }
+        }
+
         // Function to book an appointment
         function bookAppointment(event) {
             event.preventDefault();
             
-            // In a real implementation, this would trigger MFA verification first
-            // showMfaModal();
-            // Then proceed after successful verification
-            
             const doctor = document.getElementById('doctor').value;
             const date = document.getElementById('appointmentDate').value;
             const time = document.getElementById('appointmentTime').value;
+            const notes = document.getElementById('appointmentNotes').value;
 
             if (doctor && date && time) {
+                const appointmentId = Math.floor(Math.random() * 10000);
+                
+                // Update UI
                 document.getElementById('appointmentDoctor').textContent = doctor;
                 document.getElementById('appointmentDateDisplay').textContent = date;
                 document.getElementById('appointmentTimeDisplay').textContent = time;
-                document.getElementById('appointmentId').textContent = Math.floor(Math.random() * 10000);
+                document.getElementById('appointmentNotesDisplay').textContent = notes || 'None';
+                document.getElementById('appointmentId').textContent = appointmentId;
                 document.getElementById('appointmentReceipt').style.display = 'block';
                 
-                // Scroll to receipt
-                document.getElementById('appointmentReceipt').scrollIntoView({ behavior: 'smooth' });
+                // Send email confirmation
+                sendEmailConfirmation('appointment', {
+                    doctor: doctor,
+                    date: date,
+                    time: time,
+                    notes: notes,
+                    id: appointmentId
+                });
                 
                 alert(`Appointment booked with ${doctor} on ${date} at ${time}.`);
             } else {
-                alert('Please fill in all fields.');
+                alert('Please fill in all required fields.');
             }
         }
 
@@ -552,15 +745,14 @@
         function payBill(billId, description, amount) {
             const confirmation = confirm(`Do you want to pay $${amount} for ${description}?`);
             if (confirmation) {
-                // In a real implementation, this would trigger MFA verification first
-                // showMfaModal();
-                // Then proceed after successful verification
+                const transactionId = Math.floor(Math.random() * 10000);
                 
+                // Update UI
                 document.getElementById('billId').textContent = billId;
                 document.getElementById('billDescription').textContent = description;
                 document.getElementById('billAmount').textContent = amount;
                 document.getElementById('paymentDate').textContent = getCurrentDate();
-                document.getElementById('transactionId').textContent = Math.floor(Math.random() * 10000);
+                document.getElementById('transactionId').textContent = transactionId;
                 document.getElementById('billReceipt').style.display = 'block';
                 
                 // Update table status
@@ -572,8 +764,13 @@
                     }
                 });
                 
-                // Scroll to receipt
-                document.getElementById('billReceipt').scrollIntoView({ behavior: 'smooth' });
+                // Send email confirmation
+                sendEmailConfirmation('payment', {
+                    billId: billId,
+                    description: description,
+                    amount: amount,
+                    transactionId: transactionId
+                });
                 
                 alert(`Payment of $${amount} for ${description} has been processed.`);
             }
@@ -581,9 +778,6 @@
 
         // Function to show test result
         function showTestResult(testName, testDate, testResult) {
-            // In a real implementation, this might require MFA for sensitive medical data
-            // showMfaModal();
-            
             document.getElementById('testName').textContent = testName;
             document.getElementById('testDate').textContent = testDate;
             document.getElementById('testResult').textContent = testResult;
@@ -598,24 +792,21 @@
         function updateDetails(event) {
             event.preventDefault();
             
-            // In a real implementation, this would trigger MFA verification first
-            // showMfaModal();
-            // Then proceed after successful verification
-            
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
 
             if (name && email && phone) {
                 document.getElementById('updateDate').textContent = getCurrentDate();
                 document.getElementById('updateConfirmation').style.display = 'block';
                 
-                // Scroll to confirmation
-                document.getElementById('updateConfirmation').scrollIntoView({ behavior: 'smooth' });
+                // Send email confirmation
+                sendEmailConfirmation('profile', {});
                 
                 alert('Your details have been updated successfully!');
             } else {
-                alert('Please fill in all fields.');
+                alert('Please fill in all required fields.');
             }
         }
 
@@ -636,19 +827,8 @@
             }, 500);
         }
 
-        // Simulate encrypted data transmission
-        function encryptData(data) {
-            // In a real implementation, this would use Web Crypto API or similar
-            console.log(`[Security] Encrypting data: ${data}`);
-            return data; // Return would be encrypted in real implementation
-        }
-
-        // Simulate encrypted data transmission
-        function decryptData(data) {
-            // In a real implementation, this would use Web Crypto API or similar
-            console.log(`[Security] Decrypting data: ${data}`);
-            return data; // Return would be decrypted in real implementation
-        }
+        // Initialize date picker with min date
+        document.getElementById('appointmentDate').min = new Date().toISOString().split('T')[0];
     </script>
 </body>
 </html>
